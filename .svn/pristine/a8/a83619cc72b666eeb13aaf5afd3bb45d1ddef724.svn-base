@@ -1,0 +1,437 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Collections;
+
+namespace YimaEncNavigator
+{
+        //船舶轨迹点结构
+    public class Track_Info
+    {
+        public int time = 0;//时间
+        public float speed = 0;//航速
+        public float head = 0;//航向
+        public M_POINT mGeoPo = new M_POINT();//位置
+        public ArrayList arrAttrValue = new ArrayList();//扩展字段
+
+        public void SetTrackInfo(int _time, float _speed,float _head,M_POINT _mGeoPo)
+        {
+            this.time = _time;
+            this.speed = _speed;
+            this.head = _head;
+            this.mGeoPo = _mGeoPo;
+        }
+    }
+
+    //船舶静态信息
+    public class ShipBasicInfo
+    {
+        public string id;
+        public string name;
+        public int mmsi;
+        public double width;
+        public double len;
+        public string shipType;
+        public double chishui;//吃水
+        public string huhao;//呼号
+        public string dunwei;//吨位
+        public string imo;//
+        public string guoqi;//国旗
+        public double weight;//吨位
+
+        public double fDeep = 0;//水深
+        public double windCourse = 0;//风向
+        public double windSpeed = 0;//风速度
+        public double tempture = 0;//风速度
+        public double waterCourse = 0;//风速度
+        public double waterSpeed = 0;//风速度
+
+        public ShipBasicInfo()
+        {
+            this.id = "-1";
+            this.name = "-1";
+            this.mmsi = 0;
+            this.width = 0;
+            this.len = 0;
+            this.shipType = "1";
+            this.chishui = 0;
+            this.huhao = "0";
+            this.dunwei = "0";
+            this.imo = "";
+            this.guoqi = "中国";
+            this.weight = 0;
+        }
+    }
+
+    //船舶的动态信息
+    public class ShipDynamicInfo
+    {
+        public string id;
+        public double lon;
+        public double lat;
+        public double speed;
+        public double head;
+        public int time;
+        public int iUpdateCount;
+
+        public ShipDynamicInfo()
+        {
+            this.id = "-1";
+            this.lon = 0;
+            this.lat = 0;
+            this.speed = 0;
+            this.head = 0;
+            this.time = 0;
+            this.iUpdateCount = 0;
+        }
+    }
+
+    //船舶对象
+    public class ShipInfo
+    {
+        public string id;
+        public ShipBasicInfo mBasicInfo;
+        public ShipDynamicInfo mDynamicInfo;
+
+        public ArrayList arrTrackInfo = new ArrayList();
+        public int iCurShowTrackIndex = 0;
+        public int iCurNextPoRunCount = 0;//到达下一个点要模拟计算的点数量
+
+        public int iShipUpdateSecond = 1;//30秒更新一次
+
+        public ShipInfo()
+        {
+            this.id = "-1";
+            this.mBasicInfo = new ShipBasicInfo();
+            this.mDynamicInfo = new ShipDynamicInfo();
+        }
+
+        public ShipInfo(string _id, ShipBasicInfo _ShipBasicInfo, ShipDynamicInfo _ShipDynamicInfo)
+        {
+            this.id = _id;
+            this.mBasicInfo = _ShipBasicInfo;
+            this.mDynamicInfo = _ShipDynamicInfo;
+        }
+    }
+
+    public class ShipManClass
+    {
+        public static ArrayList m_arrShipList = new ArrayList();
+        public static int m_iCurShowShipMmsi = -1;
+        public static int m_iCurFollowShipMmsi = -1;
+        public static int m_iFollowType = 0;
+        public void InitShipInfo()
+        {
+
+        }
+    }
+ 
+    //回放轨迹的船舶管理类
+    public class PlayHistory_ShipMan
+    {
+        public ArrayList arrPlayHistoryShipInfo = new ArrayList();//轨迹信息
+        public int iCurPlayStep = 60;//播放速度
+        public int iCurPlayTime = 0;//当前播放的时间
+        public int iStartPlayTime = 0;//开始时间
+        public int iEndPlayTime = 0;//结束时间
+
+        public int iCurHighLightShipId = -1;//高亮船舶
+
+        public void AddNewPlayHistoryShip(Play_HistoryTrack_Ship curPlayShip)
+        {
+            this.arrPlayHistoryShipInfo.Add(curPlayShip);
+
+            if (this.arrPlayHistoryShipInfo.Count == 1)
+            {
+                this.iCurPlayTime = curPlayShip.iMinTime - 1;
+                this.iStartPlayTime = curPlayShip.iMinTime - 1;
+                this.iEndPlayTime = curPlayShip.iMaxTime + 1;
+            }
+            else
+            {
+                if (this.iStartPlayTime > curPlayShip.iMinTime)
+                {
+                    this.iStartPlayTime = curPlayShip.iMinTime - 1;
+                    this.iCurPlayTime = curPlayShip.iMinTime - 1;
+                }
+                else if (this.iEndPlayTime < curPlayShip.iMaxTime + 1)
+                {
+                    this.iEndPlayTime = curPlayShip.iMaxTime + 1;
+                }
+            }
+        }
+
+        public void BackPlayTrack(int iTimeCount)
+        {
+            this.iCurPlayTime -= iTimeCount;
+            if (this.iCurPlayTime < this.iStartPlayTime)
+            {
+                this.iCurPlayTime = this.iStartPlayTime - 1;
+            }
+
+            for (int i = 0; i < this.arrPlayHistoryShipInfo.Count; i++)
+            {
+                ((Play_HistoryTrack_Ship)this.arrPlayHistoryShipInfo[i]).iNextShowTrackPos = 0;
+            }
+        }
+
+        public void AheadPlayTrack(int iTimeCount)
+        {
+            this.iCurPlayTime += iTimeCount;
+            if (this.iCurPlayTime > this.iEndPlayTime)
+            {
+                this.iCurPlayTime = this.iEndPlayTime + 1;
+            }
+        }
+
+        public void SetCurPlayTime(int iCurTime)
+        {
+            this.iCurPlayTime = iCurTime;
+            if (this.iCurPlayTime > this.iEndPlayTime)
+            {
+                this.iCurPlayTime = this.iEndPlayTime + 1;
+            }
+            else if (this.iCurPlayTime < this.iStartPlayTime)
+            {
+                this.iCurPlayTime = this.iStartPlayTime - 1;
+            }
+
+            for (int i = 0; i < this.arrPlayHistoryShipInfo.Count; i++)
+            {
+                ((Play_HistoryTrack_Ship)this.arrPlayHistoryShipInfo[i]).iNextShowTrackPos = 0;
+            }
+        }
+
+        public void Clear()
+        {
+            for (int i = 0; i < this.arrPlayHistoryShipInfo.Count; i++)
+            {
+                ((Play_HistoryTrack_Ship)this.arrPlayHistoryShipInfo[i]).mShipInfoBox.Close();
+            }
+            this.arrPlayHistoryShipInfo.Clear();
+            this.iCurPlayStep = 60;
+            this.iCurPlayTime = 0;
+            this.iStartPlayTime = 0;
+            this.iEndPlayTime = 0;
+        }
+
+        public bool SelectTrackInfoByGeoPo(M_POINT mGeoPo, M_POINT mCheckLenGeoPo, ref string strShipName, ref Track_Info curTrackInfo)
+        {
+            bool bResult = false;
+
+            for (int i = 0; i < this.arrPlayHistoryShipInfo.Count; i++)
+            {
+                bResult = ((Play_HistoryTrack_Ship)this.arrPlayHistoryShipInfo[i]).SelectTrackInfoByGeoPo(mGeoPo, mCheckLenGeoPo, ref curTrackInfo);
+                if (bResult)
+                {
+                    strShipName = ((Play_HistoryTrack_Ship)this.arrPlayHistoryShipInfo[i]).shipName;
+                    break;
+                }
+            }
+
+            return bResult;
+        }
+    }
+
+    public enum SHIP_PLAY_HISTORY_TRACK_STATE
+    {
+        HISTORY_TRACK_None = 0,//没有回放
+        HISTORY_TRACK_Ready = 1,//等待播放
+        HISTORY_TRACK_Playing = 2,//播放中
+        HISTORY_TRACK_Stop = 3,//暂停中
+    };
+
+    //回放轨迹的船舶结构体
+    public class Play_HistoryTrack_Ship
+    {
+        public int shipId;
+        public string shipName;
+        public ArrayList arrTrackInfo;//轨迹信息
+        public int iNextShowTrackPos; //当前轨迹显示的序号
+
+        public int iMinTime;//最小时间
+        public int iMaxTime;//最大时间
+
+        public int iLineWidth;//线的粗细
+        public M_COLOR mLineColor;//线的颜色
+        public M_COLOR mFillColor;//填充颜色
+        public bool bFormAddToMap;
+        public M_POINT mOffsetScrnPo;
+
+        public Form_Box mShipInfoBox;
+
+        public Play_HistoryTrack_Ship()
+        {
+            this.shipId = -1;
+            this.shipName = "";
+            this.arrTrackInfo = new ArrayList();//轨迹信息
+            this.iNextShowTrackPos = 0; //下一个轨迹显示的序号
+
+            this.iMinTime = 0;//最小时间
+            this.iMaxTime = 0;//最大时间
+
+            this.iLineWidth = 2;//线的粗细
+            this.mLineColor = new M_COLOR(255, 0, 0);//线的颜色
+            this.mFillColor = new M_COLOR(255, 255, 255);//填充颜色
+
+            this.bFormAddToMap = false;
+            this.mOffsetScrnPo = new M_POINT(50, 50);
+
+            this.mShipInfoBox = new Form_Box();
+        }
+
+        public void AddNewTrackInfo(Track_Info curTrackInfo)
+        {
+            this.arrTrackInfo.Add(curTrackInfo);
+
+            if (this.arrTrackInfo.Count == 1)
+            {
+                this.iMaxTime = curTrackInfo.time;
+                this.iMinTime = curTrackInfo.time;
+            }
+            else
+            {
+                if (this.iMaxTime < curTrackInfo.time)
+                {
+                    this.iMaxTime = curTrackInfo.time;
+                }
+                else if (this.iMinTime > curTrackInfo.time)
+                {
+                    this.iMinTime = curTrackInfo.time;
+                }
+            }
+        }
+
+        public void SetTrackStyle(int _iLineWidth, M_COLOR _mLineColor, M_COLOR _mFillColor)
+        {
+            this.iLineWidth = _iLineWidth;
+            this.mLineColor = _mLineColor;
+            this.mFillColor = _mFillColor;
+        }
+
+        public bool GetCurShipPlayTrackInfo(ref Track_Info curPlayTrackInfo)
+        {
+            bool bPlay = false;
+
+            if (this.iNextShowTrackPos > 0)
+            {
+                bPlay = true;
+                curPlayTrackInfo = (Track_Info)this.arrTrackInfo[this.iNextShowTrackPos - 1];
+            }
+            return bPlay;
+        }
+
+        public bool SelectTrackInfoByGeoPo(M_POINT mGeoPo, M_POINT mCheckLenPo, ref Track_Info curPlayTrackInfo)
+        {
+            bool bResult = false;
+            for (int i = 0; i < this.iNextShowTrackPos; i++)
+            {
+                Track_Info curTrackInfo = (Track_Info)this.arrTrackInfo[i];
+                M_POINT mOffsetPo = curTrackInfo.mGeoPo - mGeoPo;
+                if (Math.Abs(mOffsetPo.x) > mCheckLenPo.x || Math.Abs(mOffsetPo.y) > mCheckLenPo.y)
+                {
+                    continue;
+                }
+
+                curPlayTrackInfo = curTrackInfo;
+                bResult = true;
+                break;
+            }
+
+            return bResult;
+        }
+
+        public void Clear()
+        {
+            this.arrTrackInfo.Clear();
+            this.shipId = -1;
+            this.iNextShowTrackPos = -1;
+            this.iMinTime = 0;
+            this.iMaxTime = 0;
+        }
+    }
+
+
+    public class Msg_Info
+    {
+        public int mmsi;//mmsi号
+        public string person;//发送人
+        public string shipName;//船名
+        public int iTime;//时间
+        public int iMsgType;//类型:0=发送，1=接收
+        public string strMsg;//信息
+        public string msgTypeText;//信息类型:告警、通告、警告等
+
+        public int lon;
+        public int lat;
+
+        public Msg_Info()
+        {
+            this.mmsi = 0;//mmsi号
+            this.person = "Admin";//发送人
+            this.shipName = "";//船名
+            this.iTime = 0;//时间
+            this.iMsgType = 0;//类型:0=发送，1=接收
+            this.strMsg = "信息内容";//信息
+            this.msgTypeText = "通告";//信息类型:告警、通告、警告等
+            this.lon = 0;
+            this.lat = 0;
+        }
+
+        public string GetString()
+        {
+            string strValue = "";
+
+            this.strMsg = this.strMsg.Replace(',', '，');
+
+            strValue = this.iMsgType.ToString() + ",";//0=发送、1=接收
+            strValue += this.mmsi.ToString() +",";//mmsi号
+            strValue += this.msgTypeText + ",";//类型：信息类型:告警、通告、警告等
+            strValue += this.person +",";//发送人
+            strValue += this.iTime.ToString() + ",";//时间
+            strValue += this.strMsg + ",";//内容
+            strValue += this.shipName + ",";//船名
+            strValue += this.lon.ToString() + ",";//经度
+            strValue += this.lat.ToString() + ",";//纬度
+
+            return strValue;
+        }
+    }
+
+    public class Msg_Man
+    {
+        public static ArrayList m_arrMsgList = new ArrayList();
+
+
+        public static bool AddNewMsgByString(string strMsg)
+        {
+            bool bResult = false;
+            string[] arrStr = strMsg.Split(',');
+            if (arrStr.Length > 8)
+            {
+                try
+                {
+                    Msg_Info curMsgInfo = new Msg_Info();
+                    curMsgInfo.iMsgType = Convert.ToInt32(arrStr[0]);
+                    curMsgInfo.mmsi = Convert.ToInt32(arrStr[1]);
+                    curMsgInfo.msgTypeText = arrStr[2];
+                    curMsgInfo.person = arrStr[3];
+                    curMsgInfo.iTime = Convert.ToInt32(arrStr[4]);
+                    curMsgInfo.strMsg = arrStr[5];
+                    curMsgInfo.shipName = arrStr[6];
+                    curMsgInfo.lon = Convert.ToInt32(arrStr[7]);
+                    curMsgInfo.lat = Convert.ToInt32(arrStr[8]);
+                    m_arrMsgList.Add(curMsgInfo);
+
+                    bResult = true;
+                }
+                catch (Exception)
+                {
+                    
+                }
+            }
+
+            return bResult;
+        }
+    }
+}

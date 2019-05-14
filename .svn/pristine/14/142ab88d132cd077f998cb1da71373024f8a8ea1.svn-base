@@ -1,0 +1,246 @@
+﻿namespace YimaEncNavigator
+{
+    partial class Form_AddObjectLine
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.components = new System.ComponentModel.Container();
+            this.textBox_content = new System.Windows.Forms.TextBox();
+            this.textBox_name = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.comboBox_LineSize = new System.Windows.Forms.ComboBox();
+            this.linkLabel_selColor = new System.Windows.Forms.LinkLabel();
+            this.textBox_Color = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.dataGridView_List = new System.Windows.Forms.DataGridView();
+            this.Column_lon = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column_lat = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.button_save = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.trackBar_opacity = new System.Windows.Forms.TrackBar();
+            this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_List)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar_opacity)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // textBox_content
+            // 
+            this.textBox_content.Location = new System.Drawing.Point(211, 12);
+            this.textBox_content.Name = "textBox_content";
+            this.textBox_content.Size = new System.Drawing.Size(101, 21);
+            this.textBox_content.TabIndex = 10;
+            // 
+            // textBox_name
+            // 
+            this.textBox_name.Location = new System.Drawing.Point(53, 12);
+            this.textBox_name.Name = "textBox_name";
+            this.textBox_name.Size = new System.Drawing.Size(100, 21);
+            this.textBox_name.TabIndex = 9;
+            this.textBox_name.Text = "线标绘";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(173, 15);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(35, 12);
+            this.label2.TabIndex = 8;
+            this.label2.Text = "备注:";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(9, 15);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(35, 12);
+            this.label1.TabIndex = 7;
+            this.label1.Text = "名称:";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.comboBox_LineSize);
+            this.groupBox1.Controls.Add(this.trackBar_opacity);
+            this.groupBox1.Controls.Add(this.linkLabel_selColor);
+            this.groupBox1.Controls.Add(this.textBox_Color);
+            this.groupBox1.Controls.Add(this.label5);
+            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Location = new System.Drawing.Point(1, 38);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(321, 67);
+            this.groupBox1.TabIndex = 11;
+            this.groupBox1.TabStop = false;
+            // 
+            // comboBox_LineSize
+            // 
+            this.comboBox_LineSize.FormattingEnabled = true;
+            this.comboBox_LineSize.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9"});
+            this.comboBox_LineSize.Location = new System.Drawing.Point(52, 18);
+            this.comboBox_LineSize.Name = "comboBox_LineSize";
+            this.comboBox_LineSize.Size = new System.Drawing.Size(100, 20);
+            this.comboBox_LineSize.TabIndex = 11;
+            // 
+            // linkLabel_selColor
+            // 
+            this.linkLabel_selColor.AutoSize = true;
+            this.linkLabel_selColor.Location = new System.Drawing.Point(156, 22);
+            this.linkLabel_selColor.Name = "linkLabel_selColor";
+            this.linkLabel_selColor.Size = new System.Drawing.Size(77, 12);
+            this.linkLabel_selColor.TabIndex = 4;
+            this.linkLabel_selColor.TabStop = true;
+            this.linkLabel_selColor.Text = "线颜色(RGB):";
+            this.linkLabel_selColor.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_selColor_LinkClicked);
+            // 
+            // textBox_Color
+            // 
+            this.textBox_Color.Location = new System.Drawing.Point(234, 18);
+            this.textBox_Color.Name = "textBox_Color";
+            this.textBox_Color.Size = new System.Drawing.Size(77, 21);
+            this.textBox_Color.TabIndex = 3;
+            this.textBox_Color.Text = "0,0,255";
+            this.textBox_Color.TextChanged += new System.EventHandler(this.textBox_Color_TextChanged);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(5, 22);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(47, 12);
+            this.label4.TabIndex = 1;
+            this.label4.Text = "线粗细:";
+            // 
+            // dataGridView_List
+            // 
+            this.dataGridView_List.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView_List.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Column_lon,
+            this.Column_lat});
+            this.dataGridView_List.Location = new System.Drawing.Point(2, 111);
+            this.dataGridView_List.Name = "dataGridView_List";
+            this.dataGridView_List.RowTemplate.Height = 23;
+            this.dataGridView_List.Size = new System.Drawing.Size(319, 190);
+            this.dataGridView_List.TabIndex = 0;
+            this.dataGridView_List.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridView_List_RowPostPaint);
+            // 
+            // Column_lon
+            // 
+            this.Column_lon.HeaderText = "经度";
+            this.Column_lon.Name = "Column_lon";
+            this.Column_lon.Width = 130;
+            // 
+            // Column_lat
+            // 
+            this.Column_lat.HeaderText = "纬度";
+            this.Column_lat.Name = "Column_lat";
+            this.Column_lat.Width = 120;
+            // 
+            // button_save
+            // 
+            this.button_save.Location = new System.Drawing.Point(237, 312);
+            this.button_save.Name = "button_save";
+            this.button_save.Size = new System.Drawing.Size(75, 23);
+            this.button_save.TabIndex = 12;
+            this.button_save.Text = "保存";
+            this.button_save.UseVisualStyleBackColor = true;
+            this.button_save.Click += new System.EventHandler(this.button_save_Click);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(5, 44);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(47, 12);
+            this.label5.TabIndex = 2;
+            this.label5.Text = "透明度:";
+            // 
+            // trackBar_opacity
+            // 
+            this.trackBar_opacity.AutoSize = false;
+            this.trackBar_opacity.Location = new System.Drawing.Point(46, 42);
+            this.trackBar_opacity.Maximum = 50;
+            this.trackBar_opacity.Minimum = 1;
+            this.trackBar_opacity.Name = "trackBar_opacity";
+            this.trackBar_opacity.Size = new System.Drawing.Size(269, 20);
+            this.trackBar_opacity.TabIndex = 10;
+            this.trackBar_opacity.Value = 25;
+            this.trackBar_opacity.ValueChanged += new System.EventHandler(this.trackBar_opacity_ValueChanged);
+            // 
+            // Form_AddObjectLine
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(324, 340);
+            this.Controls.Add(this.button_save);
+            this.Controls.Add(this.dataGridView_List);
+            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.textBox_content);
+            this.Controls.Add(this.textBox_name);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
+            this.Name = "Form_AddObjectLine";
+            this.Text = "添加线标绘";
+            this.Load += new System.EventHandler(this.Form_AddObjectLine_Load);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_List)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar_opacity)).EndInit();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.TextBox textBox_content;
+        private System.Windows.Forms.TextBox textBox_name;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.DataGridView dataGridView_List;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.LinkLabel linkLabel_selColor;
+        private System.Windows.Forms.TextBox textBox_Color;
+        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.ComboBox comboBox_LineSize;
+        private System.Windows.Forms.Button button_save;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column_lon;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column_lat;
+        private System.Windows.Forms.TrackBar trackBar_opacity;
+        private System.Windows.Forms.Label label5;
+    }
+}

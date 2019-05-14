@@ -1,0 +1,156 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Text;
+using System.Windows.Forms;
+
+namespace YimaEncNavigator
+{
+    public partial class Form_AddObjectPoint : Form
+    {
+
+        public int m_iCurObjectGeoType;
+
+        public int m_iLayerPos = -1;
+        public int m_iObjPos = -1;
+        public int m_iSymbolId = -1;
+        public M_POINT m_GeoPo;
+        public bool m_bSaveObjectOk = false;
+        public Form_AddObjectPoint()
+        {
+            InitializeComponent();
+        }
+        private void Form_AddObjectPoint_Load(object sender, EventArgs e)
+        {
+            InitValue();
+        }
+
+        public void InitValue()
+        {
+            this.m_iCurObjectGeoType = (int)M_GEO_TYPE.TYPE_POINT;
+            this.textBox_name.Text = "点标绘";
+            this.m_GeoPo = new M_POINT();
+        }
+
+        public void SetPointGeoPo(M_POINT mGeoPo)
+        {
+            this.m_GeoPo = mGeoPo;
+            this.textBox_lon.Text = ((double)mGeoPo.x / 10000000).ToString("#0.00000");
+            this.textBox_lat.Text = ((double)mGeoPo.y / 10000000).ToString("#0.00000");
+
+        }
+
+        public void SetPointObjectPos(int iLayerPos, int iObjectPos)
+        {
+            this.m_iLayerPos = iLayerPos;
+            this.m_iObjPos = iObjectPos;
+        }
+
+        private void button_save_Click(object sender, EventArgs e)
+        {
+            if (this.m_iLayerPos < 0)
+            {
+                MessageBox.Show("没有对应的图层。" + this.m_iLayerPos);
+                return;
+            }
+            string strObjName = this.textBox_name.Text;
+            string strObjText = strObjName;
+            string strContent = this.textBox_content.Text;
+            string strLon = this.textBox_lon.Text;
+            string strLat = this.textBox_lat.Text;
+            int iSymbolId = GetObjectSymbolId();
+            M_COLOR textColor = new M_COLOR(255, 0, 0);
+            M_POINT mTextOffsetPo = new M_POINT(15, -10);
+
+            try
+            {
+                this.m_GeoPo.x = (int)(FormMain.UNI_GEO_COOR_MULTI_FACTOR * Convert.ToDouble(strLon));
+                this.m_GeoPo.y = (int)(FormMain.UNI_GEO_COOR_MULTI_FACTOR * Convert.ToDouble(strLat));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("请输入正确的经纬度坐标！");
+                return;
+            }
+
+
+
+            if (this.m_iObjPos < 0)
+            {
+                bool bAddNewPoint = ((FormMain)this.Owner).ymEncCtrl.tmAppendObjectInLayer(this.m_iLayerPos, this.m_iCurObjectGeoType);
+                if (bAddNewPoint == false)
+                {
+                    MessageBox.Show("添加标绘到引擎失败。");
+                    return;
+                }
+                this.m_iObjPos = ((FormMain)this.Owner).ymEncCtrl.tmGetLayerObjectCount(this.m_iLayerPos) - 1;
+                ((FormMain)this.Owner).ymEncCtrl.ToolCancelAllOperation();
+            }
+
+            ((FormMain)this.Owner).ymEncCtrl.tmSetPointObjectCoor(this.m_iLayerPos, this.m_iObjPos, this.m_GeoPo.x, this.m_GeoPo.y);
+
+            ((FormMain)this.Owner).ymEncCtrl.tmSetPointObjectStyle(this.m_iLayerPos, this.m_iObjPos, iSymbolId,
+                false, 0, 0, true, strObjText, "宋体", 12, textColor.ToInt(), true, false, 0, 0, mTextOffsetPo.x, mTextOffsetPo.y, 0);
+            //this.ymEncCtrl.tmSetObjectTextRotate(e.layerPos, e.objPos, 0);
+
+            ((FormMain)this.Owner).RedrawMapScreen();
+            MessageBox.Show("添加点标绘成功");
+            this.m_bSaveObjectOk = true;
+            this.Close();
+        }
+
+        private void Form_AddObjectPoint_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (this.m_bSaveObjectOk == false)
+            {
+                if (MessageBox.Show("您确定退出添加点标绘吗？", "提示", MessageBoxButtons.YesNo) == DialogResult.No)
+                {
+                    e.Cancel = true;
+                }
+                else
+                {
+                    if (this.m_iObjPos > -1)
+                    {
+                        ((FormMain)this.Owner).ymEncCtrl.tmDeleteGeoObject(this.m_iLayerPos, this.m_iObjPos);
+                        ((FormMain)this.Owner).RedrawMapScreen();
+                    }
+                    else
+                    {
+                        ((FormMain)this.Owner).ymEncCtrl.ToolCancelAllOperation();
+                    }
+                }
+            }
+
+        }
+
+        private int GetObjectSymbolId()
+        {
+            int iSymbolId = 1;
+            System.Windows.Forms.Control.ControlCollection rbColl = this.groupBox1.Controls;
+            Type curType = rbColl.GetType();
+            foreach (Control curControl in rbColl)
+            {
+                if (curControl is RadioButton)
+                {
+                    RadioButton rb = (RadioButton)curControl;
+                    if (rb.Checked)
+                    {
+                        try
+                        {
+                            iSymbolId = Convert.ToInt32(rb.Name.ToString().Split('_')[1]);
+                        }
+                        catch (Exception)
+                        {
+
+                        }
+                        break;
+                    }
+                }
+
+            }
+            return iSymbolId;
+        }
+    }
+}

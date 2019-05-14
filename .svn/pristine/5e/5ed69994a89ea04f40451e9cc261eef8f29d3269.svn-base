@@ -1,0 +1,231 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Text;
+using System.Windows.Forms;
+using System.Runtime.InteropServices; 
+
+namespace YimaEncNavigator
+{
+    public partial class FormPointStylesView : Form
+    {
+        int PER_PAGE_STYLE_COUNT = 28;
+        int m_iCurPageNum = 0;
+        public int m_iEditingUserMapLayerNum;
+        int innerLayerObjPos;
+        int libSymbolCount;
+        int pageCount;
+
+        public FormPointStylesView()
+        {
+            InitializeComponent();
+        }
+
+        private void FormPointStylesView_Load(object sender, EventArgs e)
+        {
+            innerLayerObjPos = ((FormMain)this.Owner).ymEncCtrl.tmGetLayerObjectCount(m_iEditingUserMapLayerNum) - 1;
+            libSymbolCount = ((FormMain)this.Owner).ymEncCtrl.GetSymbolCount();
+            pageCount = libSymbolCount / PER_PAGE_STYLE_COUNT + (libSymbolCount % PER_PAGE_STYLE_COUNT == 0 ? 0 : 1);
+            if (pageCount > 1)
+            {
+                btn_nextPage.Visible = true;
+            }
+        }
+
+        #region 画出点型风格
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+            Graphics g = e.Graphics;
+            IntPtr hdc = g.GetHdc();
+
+            ((FormMain)this.Owner).ymEncCtrl.RefreshDrawerForDirectDrawDC((int)hdc, 500, 600, 0, 0, 1, 0);
+            
+            int symbolPoX, symbolPoY,iCurSymbolNum;           
+            
+            ((FormMain)this.Owner).ymEncCtrl.SetCurrentFont("宋体", 15, 0, 0, 0);
+            for (int sNum = 0; sNum < PER_PAGE_STYLE_COUNT; sNum++)
+            {
+                symbolPoX = 60 + (sNum % 4) * 130;
+                symbolPoY = 50 + (sNum / 4) * 50;
+                iCurSymbolNum = sNum + m_iCurPageNum * PER_PAGE_STYLE_COUNT;
+                if (iCurSymbolNum >= libSymbolCount)
+                {                    
+                    break;
+                }
+
+                int symbolID = ((FormMain)this.Owner).ymEncCtrl.GetSymbolIDFromPos(iCurSymbolNum);
+                
+                ((FormMain)this.Owner).ymEncCtrl.TextOutAtPoint(symbolID.ToString()+".", symbolPoX - 45, symbolPoY - 10);
+                ((FormMain)this.Owner).ymEncCtrl.DrawPointWithLibSymbol(symbolID, symbolPoX, symbolPoY, false, 0, 0,0);
+            }
+            
+            if (!tBox_selectID.Text.Equals(""))
+            {
+                symbolPoX = this.groupBox1.Location.X + this.groupBox2.Location.X + this.groupBox2.Width / 2;
+                symbolPoY = this.groupBox1.Location.Y + this.groupBox2.Location.Y + this.groupBox2.Height / 2;
+                iCurSymbolNum = Convert.ToInt32(tBox_selectID.Text.Trim());
+                int iColor = GetColor();
+                float ratio=0;
+                bool bSetColor = this.checkBoxColor.Checked;
+                if(cBox_setRatio.Checked && CheckInfo.isNumber(tBox_ratio.Text.Trim(),2))
+                {
+                    ratio =(float) Convert.ToDouble(tBox_ratio.Text.ToString());
+                }
+
+                ((FormMain)this.Owner).ymEncCtrl.DrawPointWithLibSymbol(iCurSymbolNum, symbolPoX, symbolPoY, bSetColor, iColor, ratio,0);
+            }
+            
+            ((FormMain)this.Owner).ymEncCtrl.RefreshDrawer((int)((FormMain)this.Owner).Handle, 0, 0, 0, 0);
+            g.ReleaseHdc();
+            g.Dispose();
+        }
+        #endregion
+
+        #region 当选择的点型ID改变时，设置条件，让其调用重新画典型风格方法OnPaint(PaintEventArgs e)
+        private void tBox_selectID_TextChanged(object sender, EventArgs e)
+        {
+            this.groupBox2.BackColor = this.groupBox1.BackColor = this.BackColor = System.Drawing.SystemColors.Control;
+            this.groupBox2.BackColor = this.groupBox1.BackColor = System.Drawing.Color.Transparent;
+        }
+        #endregion
+
+        #region 刷新样图
+        private void btn_refreshImgae_Click(object sender, EventArgs e)
+        {
+            this.groupBox2.BackColor = this.groupBox1.BackColor = this.BackColor = System.Drawing.SystemColors.Control;
+            this.groupBox2.BackColor = this.groupBox1.BackColor = System.Drawing.Color.Transparent;
+        }
+        #endregion
+
+        private void btn_cancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btn_ok_Click(object sender, EventArgs e)
+        {
+            if (!CheckInfo.isNumber(tBox_selectID.Text.Trim(), 0))
+            {
+                return;
+            }
+            int selectID = Convert.ToInt32(tBox_selectID.Text.Trim());
+            int iColor = GetColor();
+
+            float ratio=0;
+            if(cBox_setRatio.Checked && CheckInfo.isNumber(tBox_ratio.Text.Trim(),2))
+            {
+                ratio =(float) Convert.ToDouble(tBox_ratio.Text.ToString());
+            }
+
+            bool bSetColor = this.checkBoxColor.Checked;
+            ((FormMain)this.Owner).ymEncCtrl.tmSetPointObjectStyleRefLib(m_iEditingUserMapLayerNum, innerLayerObjPos, selectID, bSetColor, iColor, 1, ratio);
+            //((Form1)this.Owner).ymEncCtrl.tmSetPointObjectStyleRefLib(m_iEditingUserMapLayerNum, innerLayerObjPos, -1, false, iColor, ratio);
+            this.Close();
+        }
+
+        #region 设置颜色
+        private void btn_color_Click(object sender, EventArgs e)
+        {
+            if (this.colorDialog1.ShowDialog() == DialogResult.OK)
+            {
+                this.txtBoxColorR.Text = colorDialog1.Color.R.ToString();
+                this.txtBoxColorG.Text = colorDialog1.Color.G.ToString();
+                this.txtBoxColorB.Text = colorDialog1.Color.B.ToString();
+            }
+        }
+        #endregion
+        
+        #region 把颜色的RGB转为整型
+        private int GetColor()
+        {
+            int iColor = 0;                      
+            string colorR = txtBoxColorR.Text.ToString();
+            string colorG = txtBoxColorG.Text.ToString();
+            string colorB = txtBoxColorB.Text.ToString();
+            if (checkBoxColor.Checked && CheckInfo.isNumber(colorR, 0) && CheckInfo.isNumber(colorG, 0) && CheckInfo.isNumber(colorB, 0))
+            {
+                M_COLOR mColor = new M_COLOR(Convert.ToByte(colorR), Convert.ToByte(colorG), Convert.ToByte(colorB));
+                iColor = mColor.ToInt();
+            }
+            return iColor;
+        }
+        #endregion
+
+        //#region 把颜色的RGB转为整型
+        //private int GetColor()
+        //{
+        //    int iColor = 0;
+        //    string colorR = txtBoxColorR.Text.ToString();
+        //    string colorG = txtBoxColorG.Text.ToString();
+        //    string colorB = txtBoxColorB.Text.ToString();
+        //    if (CheckInfo.isNumber(colorR, 0) && CheckInfo.isNumber(colorG, 0) && CheckInfo.isNumber(colorB, 0) && this.checkBoxColor.Checked)
+        //    {
+        //        M_COLOR mColor = new M_COLOR(Convert.ToByte(colorR), Convert.ToByte(colorG), Convert.ToByte(colorB));
+        //        //iColor = mColor.GetHashCode();
+        //        iColor = mColor.ToInt();
+        //    }
+        //    return iColor;
+        //}
+        //#endregion
+
+
+        private void btn_nextPage_Click(object sender, EventArgs e)
+        {
+            if (m_iCurPageNum < pageCount-1)
+            {
+                m_iCurPageNum++;
+                this.groupBox3.BackColor = System.Drawing.SystemColors.Control;
+                this.groupBox3.BackColor = System.Drawing.Color.Transparent;
+            }
+            if (m_iCurPageNum > 0)
+            {
+                btn_backPage.Visible = true;
+            }
+            if (m_iCurPageNum >= pageCount - 1)
+            {
+                btn_nextPage.Visible = false;
+            }
+            
+        }
+
+        private void btn_backPage_Click(object sender, EventArgs e)
+        {
+            if (m_iCurPageNum > 0)
+            {
+                m_iCurPageNum--;
+                this.groupBox3.BackColor = System.Drawing.SystemColors.Control;
+                this.groupBox3.BackColor = System.Drawing.Color.Transparent;
+                btn_nextPage.Visible = true;
+            }
+            if (m_iCurPageNum <= 0)
+            {
+                btn_backPage.Visible = false;
+            }
+        }
+
+        #region 鼠标点击获取点图的ID
+        private void groupBox3_MouseCaptureChanged(object sender, EventArgs e)
+        {
+            M_POINT point = new M_POINT(this.PointToClient(Cursor.Position).X, this.PointToClient(Cursor.Position).Y);
+            for (int sNum = 0; sNum < PER_PAGE_STYLE_COUNT; sNum++)
+            {
+                int symbolPoX = 60 + (sNum % 4) * 130;
+                int symbolPoY = 50 + (sNum / 4) * 50;
+                int iCurSymbolNum = sNum + m_iCurPageNum * PER_PAGE_STYLE_COUNT;
+                if (iCurSymbolNum >= libSymbolCount)
+                {
+                    break;
+                }
+                if (Math.Abs(symbolPoX - point.x) <= 30 && Math.Abs(symbolPoY - point.y) <= 20)
+                {
+                    tBox_selectID.Text = ((FormMain)this.Owner).ymEncCtrl.GetSymbolIDFromPos(iCurSymbolNum).ToString();
+                    break;
+                }
+            }
+        }
+        #endregion
+    }
+}

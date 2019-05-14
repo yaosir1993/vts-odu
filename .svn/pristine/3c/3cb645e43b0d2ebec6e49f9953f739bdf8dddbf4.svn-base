@@ -1,0 +1,146 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Text;
+using System.Windows.Forms;
+
+namespace YimaEncNavigator
+{
+    public partial class Form_QueryAroundShip : Form
+    {
+        public int m_iShipId = -1;
+        public string name;
+        public int Lon;
+        public int Lat;
+        public int DrawLon;
+        public int DrawLat;
+        public Form_QueryAroundShip()
+        {
+            InitializeComponent();
+        
+        }
+
+        private void Form_QueryAroundShip_Load(object sender, EventArgs e)
+        {
+
+            this.label_currentname.Text = name;
+       
+        }
+        private void QueryAroundShip()
+        {
+
+            int rowcount = ((FormMain)this.Owner).dataGridView_ShipList.Rows.Count;
+            bool bArapValue = false;
+            int iShipGeoX = 0;
+            int iShipGeoY = 0;
+            float fValue = 0;
+            int iTimeValue = 0;
+            string strValue = "";
+            float fSpeed = 0;
+            float fSCourse = 0;
+            float fShipLen = 0;
+            float fShipWidth = 0;
+            string strShipName = new string(' ', 255);
+            int iShipMmsi = 0;
+            string strShipAttr = new string(' ', 255);
+            int iShipPos1 = ((FormMain)this.Owner).ymEncCtrl.GetOtherVesselPosOfID(m_iShipId);
+            ((FormMain)this.Owner).ymEncCtrl.GetOtherVesselCurrentInfo(iShipPos1, ref bArapValue, ref iShipGeoX, ref iShipGeoY, ref fSCourse, ref fValue, ref fValue, ref fSpeed, ref fValue, ref iTimeValue, ref strValue);
+            ((FormMain)this.Owner).ymEncCtrl.GetOtherVesselBasicInfo(iShipPos1, ref fShipLen, ref fShipWidth, ref strShipName, ref iShipMmsi,ref strShipAttr);
+            Random rd = new Random();
+            ((FormMain)this.Owner).startid = iShipPos1;
+            for (int vslNum = 0; vslNum < rowcount; vslNum++)
+            {
+                   
+                string iShipId = ((FormMain)this.Owner).dataGridView_ShipList.Rows[vslNum].Cells["shipId"].Value.ToString();
+                int ishowid = Int32.Parse(iShipId);
+                string ShipName = ((FormMain)this.Owner).dataGridView_ShipList.Rows[vslNum].Cells["shipName"].Value.ToString();
+                string ShipMmsi = ((FormMain)this.Owner).dataGridView_ShipList.Rows[vslNum].Cells["MMSI"].Value.ToString();
+                string speed = ((FormMain)this.Owner).dataGridView_ShipList.Rows[vslNum].Cells["speed"].Value.ToString();
+                string head = ((FormMain)this.Owner).dataGridView_ShipList.Rows[vslNum].Cells["course"].Value.ToString();
+                string dis = ((FormMain)this.Owner).dataGridView_ShipList.Rows[vslNum].Cells["dis"].Value.ToString();
+                string lon = ((FormMain)this.Owner).dataGridView_ShipList.Rows[vslNum].Cells["lon"].Value.ToString();
+                string lat = ((FormMain)this.Owner).dataGridView_ShipList.Rows[vslNum].Cells["lat"].Value.ToString();
+                int iShipPos = ((FormMain)this.Owner).ymEncCtrl.GetOtherVesselCount() - 1;
+                double vslGeoX = double.Parse(lon) * 10000000;
+                double vslGeoY = double.Parse(lat) * 10000000;
+                int vsx = (int)vslGeoX;
+                int vsy = (int)vslGeoY;
+                int mmsi = Int32.Parse(ShipMmsi);
+                double dis1 = ((FormMain)this.Owner).ymEncCtrl.GetDistBetwTwoPoint(vsx, vsy, iShipGeoX, iShipGeoY);//与本船的距离\
+                int querynum = Int32.Parse(this.textBox_query.Text);
+                if (dis1 < querynum && iShipMmsi != mmsi)
+                {
+                int listPos = this.queryship_ShipList.Rows.Add();
+                this.queryship_ShipList.Rows[listPos].Cells["shipId"].Value = ishowid;
+                this.queryship_ShipList.Rows[listPos].Cells["shipName"].Value = ShipName;
+                this.queryship_ShipList.Rows[listPos].Cells["MMSI"].Value = ShipMmsi;
+                this.queryship_ShipList.Rows[listPos].Cells["speed"].Value = speed;
+                this.queryship_ShipList.Rows[listPos].Cells["course"].Value = head;
+                this.queryship_ShipList.Rows[listPos].Cells["dis"].Value = Math.Round(dis1, 2);
+                this.queryship_ShipList.Rows[listPos].Cells["lon"].Value = lon; ;
+                this.queryship_ShipList.Rows[listPos].Cells["lat"].Value = lat; ;
+                }
+               
+            }
+        }
+
+        private void query_Btn_Click(object sender, EventArgs e)
+        {
+            this.queryship_ShipList.Rows.Clear();
+            QueryAroundShip();
+        }
+
+        private void queryship_ShipList_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (sender == this.queryship_ShipList)//船舶列表点击
+            {
+                int iRowPos = e.RowIndex;
+                if (iRowPos > -1)
+                {
+                    int iCurShipId = (int)this.queryship_ShipList.Rows[iRowPos].Cells["shipId"].Value;
+                //    ((Form1)this.Owner).m_CurFocuseShipid = iCurShipId;
+                    int iShipPos = ((FormMain)this.Owner).ymEncCtrl.GetOtherVesselPosOfID(iCurShipId);
+                    bool bValue = false;
+                    int iShipGeoX = 0;
+                    int iShipGeoY = 0;
+                    float fValue = 0;
+                    int iValue = 0;
+                    string strValue = "";
+                    ((FormMain)this.Owner).ymEncCtrl.GetOtherVesselCurrentInfo(iShipPos, ref bValue, ref iShipGeoX, ref iShipGeoY, ref fValue, ref fValue, ref fValue, ref fValue, ref fValue, ref iValue, ref strValue);
+                    ((FormMain)this.Owner).ymEncCtrl.CenterMap(iShipGeoX, iShipGeoY);
+                    ((FormMain)this.Owner).RedrawMapScreen();
+                }
+            }
+        }
+
+        private void line_btn_Click(object sender, EventArgs e)
+        {
+
+          
+          //  ((Form1)this.Owner).ymEncCtrl.GetScrnPoFromGeoPo(points.x, points.y, ref ((Form1)this.Owner).startPoint.x, ref ((Form1)this.Owner).startPoint.y);
+          //  ((Form1)this.Owner).ymEncCtrl.GetScrnPoFromGeoPo(points1.x, points1.y, ref ((Form1)this.Owner).endPoint.x, ref ((Form1)this.Owner).endPoint.y);
+            ((FormMain)this.Owner).g_drawline = true;
+        }
+
+
+
+        private void queryship_ShipList_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (sender == this.queryship_ShipList)//船舶列表点击
+            {
+                int iRowPos = e.RowIndex;
+                if (iRowPos > -1)
+                {
+                    int iCurShipId = (int)this.queryship_ShipList.Rows[iRowPos].Cells["shipId"].Value;
+                   // ((Form1)this.Owner).m_CurFocuseShipid = iCurShipId;
+                    int iShipPos = ((FormMain)this.Owner).ymEncCtrl.GetOtherVesselPosOfID(iCurShipId);
+                    ((FormMain)this.Owner).endid = iShipPos;
+                
+                }
+            }
+        }
+
+    }
+}

@@ -1,0 +1,328 @@
+﻿namespace YimaEncNavigator
+{
+    partial class Form_AddObjectCircle
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.textBox_content = new System.Windows.Forms.TextBox();
+            this.textBox_name = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.textBox_fillColorRGB = new System.Windows.Forms.TextBox();
+            this.linkLabel_fillColor = new System.Windows.Forms.LinkLabel();
+            this.checkBox_drawLine = new System.Windows.Forms.CheckBox();
+            this.textBox_LineColorRGB = new System.Windows.Forms.TextBox();
+            this.trackBar_opacity = new System.Windows.Forms.TrackBar();
+            this.label_opacity = new System.Windows.Forms.Label();
+            this.checkBox_fillColor = new System.Windows.Forms.CheckBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.linkLabel_selColor = new System.Windows.Forms.LinkLabel();
+            this.textBox_lat = new System.Windows.Forms.TextBox();
+            this.textBox_lon = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.textBox_circleR = new System.Windows.Forms.TextBox();
+            this.button_save = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
+            this.textBox_circleRKm = new System.Windows.Forms.TextBox();
+            this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar_opacity)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // textBox_content
+            // 
+            this.textBox_content.Location = new System.Drawing.Point(198, 6);
+            this.textBox_content.Name = "textBox_content";
+            this.textBox_content.Size = new System.Drawing.Size(101, 21);
+            this.textBox_content.TabIndex = 10;
+            // 
+            // textBox_name
+            // 
+            this.textBox_name.Location = new System.Drawing.Point(37, 6);
+            this.textBox_name.Name = "textBox_name";
+            this.textBox_name.Size = new System.Drawing.Size(100, 21);
+            this.textBox_name.TabIndex = 9;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(157, 9);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(35, 12);
+            this.label2.TabIndex = 8;
+            this.label2.Text = "备注:";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(1, 9);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(35, 12);
+            this.label1.TabIndex = 7;
+            this.label1.Text = "名称:";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.textBox_fillColorRGB);
+            this.groupBox1.Controls.Add(this.linkLabel_fillColor);
+            this.groupBox1.Controls.Add(this.checkBox_drawLine);
+            this.groupBox1.Controls.Add(this.textBox_LineColorRGB);
+            this.groupBox1.Controls.Add(this.trackBar_opacity);
+            this.groupBox1.Controls.Add(this.label_opacity);
+            this.groupBox1.Controls.Add(this.checkBox_fillColor);
+            this.groupBox1.Controls.Add(this.label6);
+            this.groupBox1.Controls.Add(this.linkLabel_selColor);
+            this.groupBox1.Location = new System.Drawing.Point(7, 109);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(299, 108);
+            this.groupBox1.TabIndex = 12;
+            this.groupBox1.TabStop = false;
+            // 
+            // textBox_fillColorRGB
+            // 
+            this.textBox_fillColorRGB.Location = new System.Drawing.Point(193, 45);
+            this.textBox_fillColorRGB.Name = "textBox_fillColorRGB";
+            this.textBox_fillColorRGB.Size = new System.Drawing.Size(99, 21);
+            this.textBox_fillColorRGB.TabIndex = 23;
+            this.textBox_fillColorRGB.Text = "255,0,0";
+            this.textBox_fillColorRGB.TextChanged += new System.EventHandler(this.textBox_fillColorRGB_TextChanged);
+            // 
+            // linkLabel_fillColor
+            // 
+            this.linkLabel_fillColor.AutoSize = true;
+            this.linkLabel_fillColor.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.linkLabel_fillColor.Location = new System.Drawing.Point(98, 49);
+            this.linkLabel_fillColor.Name = "linkLabel_fillColor";
+            this.linkLabel_fillColor.Size = new System.Drawing.Size(89, 12);
+            this.linkLabel_fillColor.TabIndex = 22;
+            this.linkLabel_fillColor.TabStop = true;
+            this.linkLabel_fillColor.Text = "填充颜色(RGB):";
+            this.linkLabel_fillColor.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_fillColor_LinkClicked);
+            // 
+            // checkBox_drawLine
+            // 
+            this.checkBox_drawLine.AutoSize = true;
+            this.checkBox_drawLine.Location = new System.Drawing.Point(6, 15);
+            this.checkBox_drawLine.Name = "checkBox_drawLine";
+            this.checkBox_drawLine.Size = new System.Drawing.Size(84, 16);
+            this.checkBox_drawLine.TabIndex = 21;
+            this.checkBox_drawLine.Text = "是否绘制边";
+            this.checkBox_drawLine.UseVisualStyleBackColor = true;
+            // 
+            // textBox_LineColorRGB
+            // 
+            this.textBox_LineColorRGB.Location = new System.Drawing.Point(193, 13);
+            this.textBox_LineColorRGB.Name = "textBox_LineColorRGB";
+            this.textBox_LineColorRGB.Size = new System.Drawing.Size(100, 21);
+            this.textBox_LineColorRGB.TabIndex = 3;
+            this.textBox_LineColorRGB.Text = "255,0,0";
+            this.textBox_LineColorRGB.TextChanged += new System.EventHandler(this.textBox_LineColorRGB_TextChanged);
+            // 
+            // trackBar_opacity
+            // 
+            this.trackBar_opacity.AutoSize = false;
+            this.trackBar_opacity.Location = new System.Drawing.Point(47, 75);
+            this.trackBar_opacity.Maximum = 50;
+            this.trackBar_opacity.Minimum = 1;
+            this.trackBar_opacity.Name = "trackBar_opacity";
+            this.trackBar_opacity.Size = new System.Drawing.Size(241, 20);
+            this.trackBar_opacity.TabIndex = 14;
+            this.trackBar_opacity.Value = 25;
+            // 
+            // label_opacity
+            // 
+            this.label_opacity.AutoSize = true;
+            this.label_opacity.Location = new System.Drawing.Point(6, 79);
+            this.label_opacity.Name = "label_opacity";
+            this.label_opacity.Size = new System.Drawing.Size(47, 12);
+            this.label_opacity.TabIndex = 13;
+            this.label_opacity.Text = "透明度:";
+            // 
+            // checkBox_fillColor
+            // 
+            this.checkBox_fillColor.AutoSize = true;
+            this.checkBox_fillColor.Location = new System.Drawing.Point(6, 47);
+            this.checkBox_fillColor.Name = "checkBox_fillColor";
+            this.checkBox_fillColor.Size = new System.Drawing.Size(72, 16);
+            this.checkBox_fillColor.TabIndex = 12;
+            this.checkBox_fillColor.Text = "是否填充";
+            this.checkBox_fillColor.UseVisualStyleBackColor = true;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(149, 17);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(0, 12);
+            this.label6.TabIndex = 7;
+            // 
+            // linkLabel_selColor
+            // 
+            this.linkLabel_selColor.AutoSize = true;
+            this.linkLabel_selColor.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.linkLabel_selColor.Location = new System.Drawing.Point(110, 17);
+            this.linkLabel_selColor.Name = "linkLabel_selColor";
+            this.linkLabel_selColor.Size = new System.Drawing.Size(77, 12);
+            this.linkLabel_selColor.TabIndex = 4;
+            this.linkLabel_selColor.TabStop = true;
+            this.linkLabel_selColor.Text = "线颜色(RGB):";
+            this.linkLabel_selColor.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_selColor_LinkClicked);
+            // 
+            // textBox_lat
+            // 
+            this.textBox_lat.Location = new System.Drawing.Point(199, 33);
+            this.textBox_lat.Name = "textBox_lat";
+            this.textBox_lat.Size = new System.Drawing.Size(100, 21);
+            this.textBox_lat.TabIndex = 16;
+            // 
+            // textBox_lon
+            // 
+            this.textBox_lon.Location = new System.Drawing.Point(37, 33);
+            this.textBox_lon.Name = "textBox_lon";
+            this.textBox_lon.Size = new System.Drawing.Size(100, 21);
+            this.textBox_lon.TabIndex = 15;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(157, 36);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(35, 12);
+            this.label4.TabIndex = 14;
+            this.label4.Text = "纬度:";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(3, 36);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(35, 12);
+            this.label3.TabIndex = 13;
+            this.label3.Text = "经度:";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(141, 69);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(41, 12);
+            this.label7.TabIndex = 17;
+            this.label7.Text = "(海里)";
+            // 
+            // textBox_circleR
+            // 
+            this.textBox_circleR.Location = new System.Drawing.Point(37, 64);
+            this.textBox_circleR.Name = "textBox_circleR";
+            this.textBox_circleR.Size = new System.Drawing.Size(98, 21);
+            this.textBox_circleR.TabIndex = 18;
+            this.textBox_circleR.TextChanged += new System.EventHandler(this.textBox_circleR_TextChanged);
+            // 
+            // button_save
+            // 
+            this.button_save.Location = new System.Drawing.Point(231, 236);
+            this.button_save.Name = "button_save";
+            this.button_save.Size = new System.Drawing.Size(75, 23);
+            this.button_save.TabIndex = 19;
+            this.button_save.Text = "保存";
+            this.button_save.UseVisualStyleBackColor = true;
+            this.button_save.Click += new System.EventHandler(this.button_save_Click);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(1, 68);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(35, 12);
+            this.label8.TabIndex = 21;
+            this.label8.Text = "半径:";
+            // 
+            // textBox_circleRKm
+            // 
+            this.textBox_circleRKm.Location = new System.Drawing.Point(198, 65);
+            this.textBox_circleRKm.Name = "textBox_circleRKm";
+            this.textBox_circleRKm.Size = new System.Drawing.Size(102, 21);
+            this.textBox_circleRKm.TabIndex = 22;
+            // 
+            // Form_AddObjectCircle
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(313, 261);
+            this.Controls.Add(this.textBox_circleRKm);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.button_save);
+            this.Controls.Add(this.textBox_circleR);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.textBox_lat);
+            this.Controls.Add(this.textBox_lon);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.textBox_content);
+            this.Controls.Add(this.textBox_name);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
+            this.Name = "Form_AddObjectCircle";
+            this.Text = "绘制圆";
+            this.Load += new System.EventHandler(this.Form_AddObjectCircle_Load);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar_opacity)).EndInit();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.TextBox textBox_content;
+        private System.Windows.Forms.TextBox textBox_name;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.LinkLabel linkLabel_fillColor;
+        private System.Windows.Forms.CheckBox checkBox_drawLine;
+        private System.Windows.Forms.TrackBar trackBar_opacity;
+        private System.Windows.Forms.Label label_opacity;
+        private System.Windows.Forms.CheckBox checkBox_fillColor;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.LinkLabel linkLabel_selColor;
+        private System.Windows.Forms.TextBox textBox_LineColorRGB;
+        private System.Windows.Forms.TextBox textBox_fillColorRGB;
+        private System.Windows.Forms.TextBox textBox_lat;
+        private System.Windows.Forms.TextBox textBox_lon;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox textBox_circleR;
+        private System.Windows.Forms.Button button_save;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox textBox_circleRKm;
+    }
+}

@@ -1,0 +1,51 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Text;
+using System.Windows.Forms;
+
+namespace YimaEncNavigator
+{
+    public partial class Form_ShipTrackInfoTinyBox : Form
+    {
+        public Track_Info m_trackInfo;
+        public Form_ShipTrackInfoTinyBox()
+        {
+            InitializeComponent();
+        }
+
+        private void Form_ShipTrackInfoTinyBox_Load(object sender, EventArgs e)
+        {
+            InitFormStyle();
+            HiddenFormBox();
+            this.Focus();
+            this.m_trackInfo = new Track_Info();
+        }
+        private void InitFormStyle()
+        {
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;//不能修改大小
+            this.ControlBox = false;//按钮不显示
+            this.ShowInTaskbar = false;//不在底部栏显示
+        }
+
+        public void HiddenFormBox()
+        {
+            this.Location = new System.Drawing.Point(-1000, 0);
+        }
+
+        public void SetTrackInfo(string strShipName,Track_Info curTrackInfo,M_POINT mScrnPo)
+        {
+            this.Text = strShipName;
+            this.label_lon.Text = "经度:" + InteropEncDotNet.GetDegreeStringFromGeoCoor_new(true, curTrackInfo.mGeoPo.x, 10000000, 3);
+            this.label_lat.Text = "纬度:" + InteropEncDotNet.GetDegreeStringFromGeoCoor_new(false, curTrackInfo.mGeoPo.y, 10000000, 3);
+            this.label_speed.Text = "航速:" + curTrackInfo.speed.ToString("#0.000") + "(节)";
+            this.label_head.Text = "航向:" + curTrackInfo.head.ToString("#0.00") + "(度)";
+            this.label_time.Text = "时间:" + InteropEncDotNet.Int2DataTime(curTrackInfo.time).ToString();
+            int iTop = mScrnPo.y + ((FormMain)this.Owner).ymEncCtrl.Top + 15;
+            this.Location = new System.Drawing.Point(mScrnPo.x + 5, iTop);
+        }
+
+    }
+}

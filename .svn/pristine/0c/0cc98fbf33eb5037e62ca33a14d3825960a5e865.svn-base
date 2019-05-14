@@ -1,0 +1,211 @@
+﻿namespace YimaEncNavigator
+{
+    partial class FormFaceStyleView
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.txtBoxColorB = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.txtBoxColorG = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.txtBoxColorR = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.btnColor = new System.Windows.Forms.Button();
+            this.checkBoxColor = new System.Windows.Forms.CheckBox();
+            this.btnCancel = new System.Windows.Forms.Button();
+            this.btnOk = new System.Windows.Forms.Button();
+            this.colorDialog1 = new System.Windows.Forms.ColorDialog();
+            this.checkBoxTransparency = new System.Windows.Forms.CheckBox();
+            this.txtBoxTransparency = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.SuspendLayout();
+            // 
+            // txtBoxColorB
+            // 
+            this.txtBoxColorB.Location = new System.Drawing.Point(133, 83);
+            this.txtBoxColorB.Name = "txtBoxColorB";
+            this.txtBoxColorB.Size = new System.Drawing.Size(30, 21);
+            this.txtBoxColorB.TabIndex = 23;
+            this.txtBoxColorB.Text = "0";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(119, 87);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(17, 12);
+            this.label5.TabIndex = 22;
+            this.label5.Text = "B:";
+            // 
+            // txtBoxColorG
+            // 
+            this.txtBoxColorG.Location = new System.Drawing.Point(132, 56);
+            this.txtBoxColorG.Name = "txtBoxColorG";
+            this.txtBoxColorG.Size = new System.Drawing.Size(31, 21);
+            this.txtBoxColorG.TabIndex = 21;
+            this.txtBoxColorG.Text = "0";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(117, 60);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(17, 12);
+            this.label6.TabIndex = 20;
+            this.label6.Text = "G:";
+            // 
+            // txtBoxColorR
+            // 
+            this.txtBoxColorR.Location = new System.Drawing.Point(131, 29);
+            this.txtBoxColorR.Name = "txtBoxColorR";
+            this.txtBoxColorR.Size = new System.Drawing.Size(32, 21);
+            this.txtBoxColorR.TabIndex = 19;
+            this.txtBoxColorR.Text = "0";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(117, 33);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(17, 12);
+            this.label11.TabIndex = 18;
+            this.label11.Text = "R:";
+            // 
+            // btnColor
+            // 
+            this.btnColor.Location = new System.Drawing.Point(212, 33);
+            this.btnColor.Name = "btnColor";
+            this.btnColor.Size = new System.Drawing.Size(40, 23);
+            this.btnColor.TabIndex = 17;
+            this.btnColor.Text = "颜色";
+            this.btnColor.UseVisualStyleBackColor = true;
+            this.btnColor.Click += new System.EventHandler(this.btnColor_Click);
+            // 
+            // checkBoxColor
+            // 
+            this.checkBoxColor.AutoCheck = false;
+            this.checkBoxColor.AutoSize = true;
+            this.checkBoxColor.Checked = true;
+            this.checkBoxColor.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxColor.Enabled = false;
+            this.checkBoxColor.Location = new System.Drawing.Point(17, 31);
+            this.checkBoxColor.Name = "checkBoxColor";
+            this.checkBoxColor.Size = new System.Drawing.Size(96, 16);
+            this.checkBoxColor.TabIndex = 16;
+            this.checkBoxColor.Text = "设置填充颜色";
+            this.checkBoxColor.UseVisualStyleBackColor = true;
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.Location = new System.Drawing.Point(177, 176);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.TabIndex = 24;
+            this.btnCancel.Text = "取消";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            // 
+            // btnOk
+            // 
+            this.btnOk.Location = new System.Drawing.Point(88, 176);
+            this.btnOk.Name = "btnOk";
+            this.btnOk.Size = new System.Drawing.Size(75, 23);
+            this.btnOk.TabIndex = 25;
+            this.btnOk.Text = "确定";
+            this.btnOk.UseVisualStyleBackColor = true;
+            this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
+            // 
+            // checkBoxTransparency
+            // 
+            this.checkBoxTransparency.AutoSize = true;
+            this.checkBoxTransparency.Location = new System.Drawing.Point(12, 126);
+            this.checkBoxTransparency.Name = "checkBoxTransparency";
+            this.checkBoxTransparency.Size = new System.Drawing.Size(84, 16);
+            this.checkBoxTransparency.TabIndex = 26;
+            this.checkBoxTransparency.Text = "设置透明度";
+            this.checkBoxTransparency.UseVisualStyleBackColor = true;
+            // 
+            // txtBoxTransparency
+            // 
+            this.txtBoxTransparency.Location = new System.Drawing.Point(119, 121);
+            this.txtBoxTransparency.Name = "txtBoxTransparency";
+            this.txtBoxTransparency.Size = new System.Drawing.Size(60, 21);
+            this.txtBoxTransparency.TabIndex = 27;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(183, 125);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(71, 12);
+            this.label1.TabIndex = 28;
+            this.label1.Text = "% (0%~100%)";
+            // 
+            // FormFaceStyleView
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(273, 216);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.txtBoxTransparency);
+            this.Controls.Add(this.checkBoxTransparency);
+            this.Controls.Add(this.btnOk);
+            this.Controls.Add(this.btnCancel);
+            this.Controls.Add(this.txtBoxColorB);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.txtBoxColorG);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.txtBoxColorR);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.btnColor);
+            this.Controls.Add(this.checkBoxColor);
+            this.Name = "FormFaceStyleView";
+            this.Text = "图库面型风格";
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.TextBox txtBoxColorB;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox txtBoxColorG;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox txtBoxColorR;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Button btnColor;
+        private System.Windows.Forms.CheckBox checkBoxColor;
+        private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.Button btnOk;
+        private System.Windows.Forms.ColorDialog colorDialog1;
+        private System.Windows.Forms.CheckBox checkBoxTransparency;
+        private System.Windows.Forms.TextBox txtBoxTransparency;
+        private System.Windows.Forms.Label label1;
+
+    }
+}

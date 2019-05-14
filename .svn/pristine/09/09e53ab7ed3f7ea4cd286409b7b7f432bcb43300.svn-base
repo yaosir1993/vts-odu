@@ -1,0 +1,171 @@
+﻿namespace YimaEncNavigator
+{
+    partial class Form_ShipInfoTinyBox
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.label_lon = new System.Windows.Forms.Label();
+            this.label_head = new System.Windows.Forms.Label();
+            this.label_speed = new System.Windows.Forms.Label();
+            this.label_lat = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label_width = new System.Windows.Forms.Label();
+            this.label_length = new System.Windows.Forms.Label();
+            this.button_showTrackOrNot = new System.Windows.Forms.Button();
+            this.button_playTrack = new System.Windows.Forms.Button();
+            this.label_time = new System.Windows.Forms.Label();
+            this.SuspendLayout();
+            // 
+            // label_lon
+            // 
+            this.label_lon.AutoSize = true;
+            this.label_lon.Location = new System.Drawing.Point(13, 13);
+            this.label_lon.Name = "label_lon";
+            this.label_lon.Size = new System.Drawing.Size(119, 12);
+            this.label_lon.TabIndex = 0;
+            this.label_lon.Text = "经度:121度32.234分W";
+            // 
+            // label_head
+            // 
+            this.label_head.AutoSize = true;
+            this.label_head.Location = new System.Drawing.Point(149, 13);
+            this.label_head.Name = "label_head";
+            this.label_head.Size = new System.Drawing.Size(89, 12);
+            this.label_head.TabIndex = 1;
+            this.label_head.Text = "航向:120.3(度)";
+            // 
+            // label_speed
+            // 
+            this.label_speed.AutoSize = true;
+            this.label_speed.Location = new System.Drawing.Point(148, 33);
+            this.label_speed.Name = "label_speed";
+            this.label_speed.Size = new System.Drawing.Size(89, 12);
+            this.label_speed.TabIndex = 3;
+            this.label_speed.Text = "航速:12.45(节)";
+            // 
+            // label_lat
+            // 
+            this.label_lat.AutoSize = true;
+            this.label_lat.Location = new System.Drawing.Point(12, 34);
+            this.label_lat.Name = "label_lat";
+            this.label_lat.Size = new System.Drawing.Size(113, 12);
+            this.label_lat.TabIndex = 2;
+            this.label_lat.Text = "经度:12度32.234分S";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(155, 65);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(0, 12);
+            this.label1.TabIndex = 5;
+            // 
+            // label_width
+            // 
+            this.label_width.AutoSize = true;
+            this.label_width.Location = new System.Drawing.Point(12, 56);
+            this.label_width.Name = "label_width";
+            this.label_width.Size = new System.Drawing.Size(83, 12);
+            this.label_width.TabIndex = 4;
+            this.label_width.Text = "宽度:55.4(米)";
+            // 
+            // label_length
+            // 
+            this.label_length.AutoSize = true;
+            this.label_length.Location = new System.Drawing.Point(148, 54);
+            this.label_length.Name = "label_length";
+            this.label_length.Size = new System.Drawing.Size(89, 12);
+            this.label_length.TabIndex = 6;
+            this.label_length.Text = "长度:125.4(米)";
+            // 
+            // button_showTrackOrNot
+            // 
+            this.button_showTrackOrNot.Location = new System.Drawing.Point(12, 97);
+            this.button_showTrackOrNot.Name = "button_showTrackOrNot";
+            this.button_showTrackOrNot.Size = new System.Drawing.Size(61, 31);
+            this.button_showTrackOrNot.TabIndex = 8;
+            this.button_showTrackOrNot.Text = "显示轨迹";
+            this.button_showTrackOrNot.UseVisualStyleBackColor = true;
+            this.button_showTrackOrNot.Visible = false;
+            this.button_showTrackOrNot.Click += new System.EventHandler(this.button_showTrackOrNot_Click);
+            // 
+            // button_playTrack
+            // 
+            this.button_playTrack.Location = new System.Drawing.Point(86, 97);
+            this.button_playTrack.Name = "button_playTrack";
+            this.button_playTrack.Size = new System.Drawing.Size(66, 31);
+            this.button_playTrack.TabIndex = 9;
+            this.button_playTrack.Text = "轨迹回放";
+            this.button_playTrack.UseVisualStyleBackColor = true;
+            this.button_playTrack.Click += new System.EventHandler(this.button_playTrack_Click);
+            // 
+            // label_time
+            // 
+            this.label_time.AutoSize = true;
+            this.label_time.Location = new System.Drawing.Point(12, 78);
+            this.label_time.Name = "label_time";
+            this.label_time.Size = new System.Drawing.Size(149, 12);
+            this.label_time.TabIndex = 7;
+            this.label_time.Text = "时间:2017-04-06 12:00:23";
+            // 
+            // Form_ShipInfoTinyBox
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(273, 134);
+            this.Controls.Add(this.button_playTrack);
+            this.Controls.Add(this.button_showTrackOrNot);
+            this.Controls.Add(this.label_time);
+            this.Controls.Add(this.label_length);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.label_width);
+            this.Controls.Add(this.label_speed);
+            this.Controls.Add(this.label_lat);
+            this.Controls.Add(this.label_head);
+            this.Controls.Add(this.label_lon);
+            this.Name = "Form_ShipInfoTinyBox";
+            this.Text = "船舶:渔政1228";
+            this.Load += new System.EventHandler(this.Form_ShipInfoTinyBox_Load);
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.Label label_lon;
+        private System.Windows.Forms.Label label_head;
+        private System.Windows.Forms.Label label_speed;
+        private System.Windows.Forms.Label label_lat;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label_width;
+        private System.Windows.Forms.Label label_length;
+        private System.Windows.Forms.Button button_showTrackOrNot;
+        private System.Windows.Forms.Button button_playTrack;
+        private System.Windows.Forms.Label label_time;
+    }
+}

@@ -1,0 +1,215 @@
+﻿namespace YimaEncNavigator
+{
+    partial class Login
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Login));
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.btnLogin = new CCWin.SkinControl.SkinButton();
+            this.skinPanel1 = new CCWin.SkinControl.SkinPanel();
+            this.userName = new CCWin.SkinControl.SkinTextBox();
+            this.passWord = new CCWin.SkinControl.SkinTextBox();
+            this.SuspendLayout();
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label1.ForeColor = System.Drawing.Color.DimGray;
+            this.label1.Location = new System.Drawing.Point(247, 76);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(293, 27);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "欢迎使用XXXVTS显控服务程序";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.Transparent;
+            this.label2.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label2.ForeColor = System.Drawing.Color.Gray;
+            this.label2.Location = new System.Drawing.Point(120, 414);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(574, 19);
+            this.label2.TabIndex = 9;
+            this.label2.Text = "COPYRIGHT@2017-2020MAJORBIO XXXXXXXXXXXXXXXX  鄂ICP备12031824号";
+            // 
+            // btnLogin
+            // 
+            this.btnLogin.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.btnLogin.BackColor = System.Drawing.Color.Transparent;
+            this.btnLogin.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.btnLogin.BackRectangle = new System.Drawing.Rectangle(50, 23, 50, 23);
+            this.btnLogin.BorderColor = System.Drawing.Color.Transparent;
+            this.btnLogin.ControlState = CCWin.SkinClass.ControlState.Normal;
+            this.btnLogin.DownBack = global::YimaEncNavigator.Properties.Resources.小按钮2选中_2x;
+            this.btnLogin.DrawType = CCWin.SkinControl.DrawStyle.Img;
+            this.btnLogin.Font = new System.Drawing.Font("微软雅黑", 9F);
+            this.btnLogin.ForeColor = System.Drawing.Color.Black;
+            this.btnLogin.Location = new System.Drawing.Point(330, 292);
+            this.btnLogin.MouseBack = global::YimaEncNavigator.Properties.Resources.小按钮2选中_2x;
+            this.btnLogin.Name = "btnLogin";
+            this.btnLogin.NormlBack = global::YimaEncNavigator.Properties.Resources.小按钮2未选中_2x;
+            this.btnLogin.Size = new System.Drawing.Size(130, 36);
+            this.btnLogin.TabIndex = 7;
+            this.btnLogin.Text = "登        录";
+            this.btnLogin.UseVisualStyleBackColor = false;
+            this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
+            // 
+            // skinPanel1
+            // 
+            this.skinPanel1.BackColor = System.Drawing.Color.Transparent;
+            this.skinPanel1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("skinPanel1.BackgroundImage")));
+            this.skinPanel1.ControlState = CCWin.SkinClass.ControlState.Normal;
+            this.skinPanel1.DownBack = null;
+            this.skinPanel1.Location = new System.Drawing.Point(195, 150);
+            this.skinPanel1.MouseBack = null;
+            this.skinPanel1.Name = "skinPanel1";
+            this.skinPanel1.NormlBack = null;
+            this.skinPanel1.Size = new System.Drawing.Size(96, 96);
+            this.skinPanel1.TabIndex = 6;
+            // 
+            // userName
+            // 
+            this.userName.BackColor = System.Drawing.Color.Transparent;
+            this.userName.DownBack = null;
+            this.userName.Icon = ((System.Drawing.Image)(resources.GetObject("userName.Icon")));
+            this.userName.IconIsButton = false;
+            this.userName.IconMouseState = CCWin.SkinClass.ControlState.Normal;
+            this.userName.IsPasswordChat = '\0';
+            this.userName.IsSystemPasswordChar = false;
+            this.userName.Lines = new string[0];
+            this.userName.Location = new System.Drawing.Point(354, 150);
+            this.userName.Margin = new System.Windows.Forms.Padding(0);
+            this.userName.MaxLength = 32767;
+            this.userName.MinimumSize = new System.Drawing.Size(28, 28);
+            this.userName.MouseBack = null;
+            this.userName.MouseState = CCWin.SkinClass.ControlState.Normal;
+            this.userName.Multiline = true;
+            this.userName.Name = "userName";
+            this.userName.NormlBack = null;
+            this.userName.Padding = new System.Windows.Forms.Padding(5, 5, 51, 5);
+            this.userName.ReadOnly = false;
+            this.userName.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.userName.Size = new System.Drawing.Size(216, 30);
+            // 
+            // 
+            // 
+            this.userName.SkinTxt.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.userName.SkinTxt.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.userName.SkinTxt.Font = new System.Drawing.Font("微软雅黑", 9.75F);
+            this.userName.SkinTxt.Location = new System.Drawing.Point(5, 5);
+            this.userName.SkinTxt.Multiline = true;
+            this.userName.SkinTxt.Name = "BaseText";
+            this.userName.SkinTxt.Size = new System.Drawing.Size(160, 20);
+            this.userName.SkinTxt.TabIndex = 0;
+            this.userName.SkinTxt.WaterColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.userName.SkinTxt.WaterText = "用户名";
+            this.userName.TabIndex = 5;
+            this.userName.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.userName.WaterColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.userName.WaterText = "用户名";
+            this.userName.WordWrap = true;
+            // 
+            // passWord
+            // 
+            this.passWord.BackColor = System.Drawing.Color.Transparent;
+            this.passWord.DownBack = null;
+            this.passWord.Icon = ((System.Drawing.Image)(resources.GetObject("passWord.Icon")));
+            this.passWord.IconIsButton = false;
+            this.passWord.IconMouseState = CCWin.SkinClass.ControlState.Normal;
+            this.passWord.IsPasswordChat = '●';
+            this.passWord.IsSystemPasswordChar = false;
+            this.passWord.Lines = new string[0];
+            this.passWord.Location = new System.Drawing.Point(354, 216);
+            this.passWord.Margin = new System.Windows.Forms.Padding(0);
+            this.passWord.MaxLength = 32767;
+            this.passWord.MinimumSize = new System.Drawing.Size(28, 28);
+            this.passWord.MouseBack = null;
+            this.passWord.MouseState = CCWin.SkinClass.ControlState.Normal;
+            this.passWord.Multiline = true;
+            this.passWord.Name = "passWord";
+            this.passWord.NormlBack = null;
+            this.passWord.Padding = new System.Windows.Forms.Padding(5, 5, 51, 5);
+            this.passWord.ReadOnly = false;
+            this.passWord.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.passWord.Size = new System.Drawing.Size(216, 30);
+            // 
+            // 
+            // 
+            this.passWord.SkinTxt.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.passWord.SkinTxt.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.passWord.SkinTxt.Font = new System.Drawing.Font("微软雅黑", 9.75F);
+            this.passWord.SkinTxt.Location = new System.Drawing.Point(5, 5);
+            this.passWord.SkinTxt.Multiline = true;
+            this.passWord.SkinTxt.Name = "BaseText";
+            this.passWord.SkinTxt.PasswordChar = '●';
+            this.passWord.SkinTxt.Size = new System.Drawing.Size(160, 20);
+            this.passWord.SkinTxt.TabIndex = 0;
+            this.passWord.SkinTxt.WaterColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.passWord.SkinTxt.WaterText = "密码";
+            this.passWord.TabIndex = 4;
+            this.passWord.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.passWord.WaterColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(127)))), ((int)(((byte)(127)))));
+            this.passWord.WaterText = "密码";
+            this.passWord.WordWrap = true;
+            // 
+            // Login
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.btnLogin);
+            this.Controls.Add(this.skinPanel1);
+            this.Controls.Add(this.userName);
+            this.Controls.Add(this.passWord);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Name = "Login";
+            this.Text = "VTS系统登录";
+            this.Activated += new System.EventHandler(this.Login_Activated);
+            this.Load += new System.EventHandler(this.Login_Load);
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
+        }
+
+        #endregion
+        private CCWin.SkinControl.SkinTextBox passWord;
+        private CCWin.SkinControl.SkinTextBox userName;
+        private CCWin.SkinControl.SkinPanel skinPanel1;
+        private CCWin.SkinControl.SkinButton btnLogin;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+    }
+}

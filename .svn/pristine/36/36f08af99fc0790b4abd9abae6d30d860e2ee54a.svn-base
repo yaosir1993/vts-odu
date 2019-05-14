@@ -1,0 +1,72 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Text;
+using System.Windows.Forms;
+using System.Text.RegularExpressions;
+
+namespace YimaEncNavigator
+{
+    public partial class FormAddObjectPoint : Form
+    {
+        public string geoType;
+        public Point geoPoint;
+        public int m_iEditingUserMapLayerNum;
+        int innerLayerObjPos;
+        public bool isNext = false;
+
+        public FormAddObjectPoint()
+        {
+            InitializeComponent();
+        }
+
+        private void FormAddPoint_Load(object sender, EventArgs e)
+        {
+            innerLayerObjPos = ((FormMain)this.Owner).ymEncCtrl.tmGetLayerObjectCount(m_iEditingUserMapLayerNum) - 1;            
+            string layerName = new string(' ', 100);
+            ((FormMain)this.Owner).ymEncCtrl.tmGetLayerName(m_iEditingUserMapLayerNum, ref layerName);
+            this.tb_GeoType.Text = geoType.ToString().Trim();
+            this.tb_InnerLayerPos.Text = innerLayerObjPos.ToString().Trim();            
+            this.tb_LayerPos.Text = m_iEditingUserMapLayerNum.ToString().Trim();
+
+            string[] str = Regex.Split(layerName, "__");
+
+            int count = str.Length;
+            if (str.Length > 1)
+            {
+                if (FormMain.isDisplayLangCh)
+                {
+                    this.tb_LayerName.Text = str[0].ToString();
+                }
+                else
+                {
+                    this.tb_LayerName.Text = str[1].ToString();
+                }
+
+            }
+            else
+            {
+                this.tb_LayerName.Text = layerName;
+            }
+            //this.tb_LayerName.Text = layerName.ToString().Trim();
+        }
+
+        private void bt_ok_Click(object sender, EventArgs e)
+        {
+            isNext = true;
+            string str_name = tb_PointName.Text.ToString();
+            if (str_name == "")
+            {
+                MessageBox.Show("请输入点的名称！");
+                isNext = false;
+                return;
+            }
+
+            ((FormMain)this.Owner).ymEncCtrl.tmSetPointObjectCoor(m_iEditingUserMapLayerNum, innerLayerObjPos, geoPoint.X, geoPoint.Y);            
+            ((FormMain)this.Owner).ymEncCtrl.tmSetObjectAttrValueString(0, innerLayerObjPos, 0, str_name);
+            this.Close();            
+        }
+    }
+}

@@ -1,0 +1,55 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Text;
+using System.Windows.Forms;
+
+namespace YimaEncNavigator
+{
+    public partial class FormModifyWayPointPos : Form
+    {
+        public int wayPointId;
+        int GeoCoorMultiFactor;
+        public FormModifyWayPointPos()
+        {
+            InitializeComponent();
+        }        
+
+        private void bt_ok_Click(object sender, EventArgs e)
+        {
+            string geoPoX = tb_WayPointGeoPoX.Text.ToString().Trim();
+            string geoPoY = tb_WayPointGeoPoY.Text.ToString().Trim();
+            if (!CheckInfo.isNumber(geoPoX,2) || Convert.ToDouble(geoPoX) > 180 || 0 > Convert.ToDouble(geoPoX))
+            {
+                tb_WayPointGeoPoX.Focus();
+                MessageBox.Show("请输入正确的航路点经度。");
+                return;
+            }
+            if (!CheckInfo.isNumber(geoPoY, 2) || Convert.ToDouble(geoPoY) > 90 || 0 > Convert.ToDouble(geoPoY))
+            {
+                tb_WayPointGeoPoY.Focus();
+                MessageBox.Show("请输入正确的航路点纬度。");
+                return;
+            }
+            ((FormMain)this.Owner).ymEncCtrl.SetWayPointCoor(wayPointId,(int)(Convert.ToDouble(geoPoX) * GeoCoorMultiFactor),(int)(Convert.ToDouble(geoPoY)*GeoCoorMultiFactor));
+            this.Close();
+        }
+
+        private void bt_cancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void FormModifyWayPointPos_Load(object sender, EventArgs e)
+        {
+            GeoCoorMultiFactor = ((FormMain)this.Owner).ymEncCtrl.GetGeoCoorMultiFactor();
+            int GeoPoX = 0, GeoPoy = 0;
+            ((FormMain)this.Owner).ymEncCtrl.GetWayPointCoor(wayPointId, ref GeoPoX, ref GeoPoy);
+            tb_WayPointId.Text = wayPointId.ToString().Trim();
+            tb_WayPointGeoPoX.Text = ((double) GeoPoX / GeoCoorMultiFactor).ToString().Trim();
+            tb_WayPointGeoPoY.Text = ((double)GeoPoy / GeoCoorMultiFactor).ToString().Trim();
+        }
+    }
+}

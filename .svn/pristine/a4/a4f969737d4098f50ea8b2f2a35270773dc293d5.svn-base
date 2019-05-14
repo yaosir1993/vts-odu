@@ -1,0 +1,337 @@
+﻿namespace YimaEncNavigator
+{
+    partial class FormPointStylesView
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.txtBoxColorB = new System.Windows.Forms.TextBox();
+            this.btn_cancel = new System.Windows.Forms.Button();
+            this.txtBoxColorG = new System.Windows.Forms.TextBox();
+            this.txtBoxColorR = new System.Windows.Forms.TextBox();
+            this.btn_ok = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.btn_refreshImgae = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.tBox_ratio = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.btn_color = new System.Windows.Forms.Button();
+            this.cBox_setRatio = new System.Windows.Forms.CheckBox();
+            this.checkBoxColor = new System.Windows.Forms.CheckBox();
+            this.tBox_selectID = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.colorDialog1 = new System.Windows.Forms.ColorDialog();
+            this.btn_backPage = new System.Windows.Forms.Button();
+            this.btn_nextPage = new System.Windows.Forms.Button();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.groupBox1.SuspendLayout();
+            this.groupBox3.SuspendLayout();
+            this.SuspendLayout();
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.BackColor = System.Drawing.Color.Transparent;
+            this.groupBox1.Controls.Add(this.label7);
+            this.groupBox1.Controls.Add(this.label6);
+            this.groupBox1.Controls.Add(this.txtBoxColorB);
+            this.groupBox1.Controls.Add(this.btn_cancel);
+            this.groupBox1.Controls.Add(this.txtBoxColorG);
+            this.groupBox1.Controls.Add(this.txtBoxColorR);
+            this.groupBox1.Controls.Add(this.btn_ok);
+            this.groupBox1.Controls.Add(this.label5);
+            this.groupBox1.Controls.Add(this.groupBox2);
+            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.btn_refreshImgae);
+            this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Controls.Add(this.tBox_ratio);
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.btn_color);
+            this.groupBox1.Controls.Add(this.cBox_setRatio);
+            this.groupBox1.Controls.Add(this.checkBoxColor);
+            this.groupBox1.Controls.Add(this.tBox_selectID);
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Location = new System.Drawing.Point(532, 12);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(241, 403);
+            this.groupBox1.TabIndex = 0;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "当前点风格";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(23, 153);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(77, 12);
+            this.label7.TabIndex = 12;
+            this.label7.Text = "设置缩放比例";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(23, 85);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(53, 12);
+            this.label6.TabIndex = 11;
+            this.label6.Text = "设置颜色";
+            // 
+            // txtBoxColorB
+            // 
+            this.txtBoxColorB.Location = new System.Drawing.Point(169, 109);
+            this.txtBoxColorB.Name = "txtBoxColorB";
+            this.txtBoxColorB.Size = new System.Drawing.Size(39, 21);
+            this.txtBoxColorB.TabIndex = 6;
+            // 
+            // btn_cancel
+            // 
+            this.btn_cancel.Location = new System.Drawing.Point(117, 364);
+            this.btn_cancel.Name = "btn_cancel";
+            this.btn_cancel.Size = new System.Drawing.Size(75, 23);
+            this.btn_cancel.TabIndex = 10;
+            this.btn_cancel.Text = "取消";
+            this.btn_cancel.UseVisualStyleBackColor = true;
+            this.btn_cancel.Click += new System.EventHandler(this.btn_cancel_Click);
+            // 
+            // txtBoxColorG
+            // 
+            this.txtBoxColorG.Location = new System.Drawing.Point(111, 109);
+            this.txtBoxColorG.Name = "txtBoxColorG";
+            this.txtBoxColorG.Size = new System.Drawing.Size(39, 21);
+            this.txtBoxColorG.TabIndex = 5;
+            // 
+            // txtBoxColorR
+            // 
+            this.txtBoxColorR.AcceptsTab = true;
+            this.txtBoxColorR.Location = new System.Drawing.Point(51, 109);
+            this.txtBoxColorR.Name = "txtBoxColorR";
+            this.txtBoxColorR.Size = new System.Drawing.Size(40, 21);
+            this.txtBoxColorR.TabIndex = 4;
+            // 
+            // btn_ok
+            // 
+            this.btn_ok.Location = new System.Drawing.Point(25, 365);
+            this.btn_ok.Name = "btn_ok";
+            this.btn_ok.Size = new System.Drawing.Size(75, 23);
+            this.btn_ok.TabIndex = 9;
+            this.btn_ok.Text = "确定";
+            this.btn_ok.UseVisualStyleBackColor = true;
+            this.btn_ok.Click += new System.EventHandler(this.btn_ok_Click);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(152, 115);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(17, 12);
+            this.label5.TabIndex = 3;
+            this.label5.Text = "B:";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Location = new System.Drawing.Point(17, 251);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(200, 100);
+            this.groupBox2.TabIndex = 8;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "样图";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(94, 115);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(17, 12);
+            this.label4.TabIndex = 2;
+            this.label4.Text = "G:";
+            // 
+            // btn_refreshImgae
+            // 
+            this.btn_refreshImgae.Location = new System.Drawing.Point(79, 213);
+            this.btn_refreshImgae.Name = "btn_refreshImgae";
+            this.btn_refreshImgae.Size = new System.Drawing.Size(75, 23);
+            this.btn_refreshImgae.TabIndex = 7;
+            this.btn_refreshImgae.Text = "刷新样图";
+            this.btn_refreshImgae.UseVisualStyleBackColor = true;
+            this.btn_refreshImgae.Click += new System.EventHandler(this.btn_refreshImgae_Click);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(34, 115);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(17, 12);
+            this.label3.TabIndex = 1;
+            this.label3.Text = "R:";
+            // 
+            // tBox_ratio
+            // 
+            this.tBox_ratio.Location = new System.Drawing.Point(87, 175);
+            this.tBox_ratio.Name = "tBox_ratio";
+            this.tBox_ratio.Size = new System.Drawing.Size(97, 21);
+            this.tBox_ratio.TabIndex = 6;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(34, 180);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(35, 12);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "比例:";
+            // 
+            // btn_color
+            // 
+            this.btn_color.Location = new System.Drawing.Point(90, 80);
+            this.btn_color.Name = "btn_color";
+            this.btn_color.Size = new System.Drawing.Size(42, 23);
+            this.btn_color.TabIndex = 4;
+            this.btn_color.Text = "颜色";
+            this.btn_color.UseVisualStyleBackColor = true;
+            this.btn_color.Click += new System.EventHandler(this.btn_color_Click);
+            // 
+            // cBox_setRatio
+            // 
+            this.cBox_setRatio.AutoSize = true;
+            this.cBox_setRatio.Location = new System.Drawing.Point(7, 153);
+            this.cBox_setRatio.Name = "cBox_setRatio";
+            this.cBox_setRatio.Size = new System.Drawing.Size(15, 14);
+            this.cBox_setRatio.TabIndex = 3;
+            this.cBox_setRatio.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxColor
+            // 
+            this.checkBoxColor.AutoSize = true;
+            this.checkBoxColor.Location = new System.Drawing.Point(7, 84);
+            this.checkBoxColor.Name = "checkBoxColor";
+            this.checkBoxColor.Size = new System.Drawing.Size(15, 14);
+            this.checkBoxColor.TabIndex = 2;
+            this.checkBoxColor.UseVisualStyleBackColor = true;
+            // 
+            // tBox_selectID
+            // 
+            this.tBox_selectID.Location = new System.Drawing.Point(87, 32);
+            this.tBox_selectID.Name = "tBox_selectID";
+            this.tBox_selectID.Size = new System.Drawing.Size(100, 21);
+            this.tBox_selectID.TabIndex = 1;
+            this.tBox_selectID.Text = "1";
+            this.tBox_selectID.TextChanged += new System.EventHandler(this.tBox_selectID_TextChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(9, 35);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(71, 12);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "选择符号ID:";
+            // 
+            // btn_backPage
+            // 
+            this.btn_backPage.Location = new System.Drawing.Point(163, 364);
+            this.btn_backPage.Name = "btn_backPage";
+            this.btn_backPage.Size = new System.Drawing.Size(75, 23);
+            this.btn_backPage.TabIndex = 1;
+            this.btn_backPage.Text = "上一页";
+            this.btn_backPage.UseVisualStyleBackColor = true;
+            this.btn_backPage.Visible = false;
+            this.btn_backPage.Click += new System.EventHandler(this.btn_backPage_Click);
+            // 
+            // btn_nextPage
+            // 
+            this.btn_nextPage.Location = new System.Drawing.Point(327, 364);
+            this.btn_nextPage.Name = "btn_nextPage";
+            this.btn_nextPage.Size = new System.Drawing.Size(75, 23);
+            this.btn_nextPage.TabIndex = 2;
+            this.btn_nextPage.Text = "下一页";
+            this.btn_nextPage.UseVisualStyleBackColor = true;
+            this.btn_nextPage.Visible = false;
+            this.btn_nextPage.Click += new System.EventHandler(this.btn_nextPage_Click);
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.BackColor = System.Drawing.Color.Transparent;
+            this.groupBox3.Controls.Add(this.btn_nextPage);
+            this.groupBox3.Controls.Add(this.btn_backPage);
+            this.groupBox3.Location = new System.Drawing.Point(3, 12);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(523, 403);
+            this.groupBox3.TabIndex = 3;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "点型图库";
+            this.groupBox3.MouseCaptureChanged += new System.EventHandler(this.groupBox3_MouseCaptureChanged);
+            // 
+            // FormPointStylesView
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(804, 469);
+            this.Controls.Add(this.groupBox3);
+            this.Controls.Add(this.groupBox1);
+            this.Name = "FormPointStylesView";
+            this.Text = "图库点型风格";
+            this.Load += new System.EventHandler(this.FormPointStylesView_Load);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.ResumeLayout(false);
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Button btn_cancel;
+        private System.Windows.Forms.Button btn_ok;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Button btn_refreshImgae;
+        private System.Windows.Forms.TextBox tBox_ratio;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button btn_color;
+        private System.Windows.Forms.CheckBox cBox_setRatio;
+        private System.Windows.Forms.CheckBox checkBoxColor;
+        private System.Windows.Forms.TextBox tBox_selectID;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox txtBoxColorB;
+        private System.Windows.Forms.TextBox txtBoxColorG;
+        private System.Windows.Forms.TextBox txtBoxColorR;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ColorDialog colorDialog1;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button btn_backPage;
+        private System.Windows.Forms.Button btn_nextPage;
+        private System.Windows.Forms.GroupBox groupBox3;
+
+
+    }
+}

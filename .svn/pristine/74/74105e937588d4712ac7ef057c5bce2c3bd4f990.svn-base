@@ -1,0 +1,51 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using BasicLibrary;
+using MySql.Data.MySqlClient;
+
+namespace YimaEncNavigator
+{
+    public partial class Login : Form
+    {
+        public Login()
+        {
+            InitializeComponent();
+        }
+
+        private void Login_Load(object sender, EventArgs e)
+        {
+        }
+
+        private void btnLogin_Click(object sender, EventArgs e)
+        {
+            //MySqlParameter[] parameters = { new MySqlParameter("@a", MySqlDbType.VarChar, 20) };
+            string loginCommand = string.Format(@"select id,realName,role from userlogin where userName = '{0}' and passWord = '{1}'", userName.Text.Trim(),passWord.Text.Trim());
+            MySqlDataReader resultReader = MySqlCustomHelper.ExecuteReader(MySqlCustomHelper.Conn,CommandType.Text, loginCommand, null);
+            if (resultReader.HasRows)
+            {
+                resultReader.Read();
+                String clientID = System.Guid.NewGuid().ToString("N");
+                FormMain formMain = new FormMain(resultReader[0].ToString(), resultReader[1].ToString(), clientID, resultReader[2].ToString());
+                formMain.Show();
+                this.Hide();
+            }
+            else
+            {
+                MessageBox.Show("用户名或者密码错误，请检查！");
+                passWord.Text = String.Empty;
+            }
+        }
+
+        private void Login_Activated(object sender, EventArgs e)
+        {
+            userName.Focus();
+        }
+    }
+}

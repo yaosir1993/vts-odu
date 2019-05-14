@@ -1,0 +1,68 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Text;
+using System.Windows.Forms;
+
+namespace YimaEncNavigator
+{
+    public partial class Form_Box : Form
+    {
+        public M_POINT m_mOffsetScrnPo;
+        public M_POINT m_curShipScrnPo;
+        public bool m_bDragFormForLocationChanged;
+
+        public string m_strName;
+        public Track_Info m_trackInfo;
+
+
+        public Form_Box()
+        {
+            InitializeComponent();
+        }
+
+        private void Form_Box_Load(object sender, EventArgs e)
+        {
+            this.ControlBox = false;
+            this.ShowInTaskbar = false;//不在底部栏显示
+            this.m_mOffsetScrnPo = new M_POINT(50, -50);
+            this.m_curShipScrnPo = new M_POINT();
+            this.m_strName = "";
+        }
+
+        private void Form_Box_LocationChanged(object sender, EventArgs e)
+        {
+            if (this.m_bDragFormForLocationChanged == true)
+            {
+                m_mOffsetScrnPo.x = this.Location.X - this.m_curShipScrnPo.x;
+                m_mOffsetScrnPo.y = this.Location.Y - this.m_curShipScrnPo.y;
+
+                ((FormMain)this.Owner).RedrawMapScreen();
+            }
+        }
+
+        public void SetFormLocation(M_POINT scrnPo)
+        {
+            this.m_bDragFormForLocationChanged = false;
+            this.Location = new System.Drawing.Point(scrnPo.x, scrnPo.y);
+            this.m_bDragFormForLocationChanged = true;
+        }
+
+        public void SetShipTrackInfo(Track_Info curTrackInfo)
+        {
+            this.m_trackInfo = curTrackInfo;
+        }
+
+        public void RefreshLableText()
+        {
+            this.Text = "船舶:" + this.m_strName;
+            this.label_lon.Text = "经度:" + InteropEncDotNet.GetDegreeStringFromGeoCoor_new(true, this.m_trackInfo.mGeoPo.x, 10000000, 3);
+            this.label_lat.Text = "纬度:" + InteropEncDotNet.GetDegreeStringFromGeoCoor_new(false, this.m_trackInfo.mGeoPo.y, 10000000, 3);
+            this.label_speed.Text = "航速:" + this.m_trackInfo.speed.ToString("#0.00") + "(节)";
+            this.label_head.Text = "航向:" + this.m_trackInfo.head.ToString("#0.0") + "(度)";
+            this.label_time.Text = "时间:" + InteropEncDotNet.Int2DataTime(this.m_trackInfo.time).ToString();
+        }
+    }
+}

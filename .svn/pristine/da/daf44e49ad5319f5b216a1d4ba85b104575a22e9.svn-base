@@ -1,0 +1,177 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Text;
+using System.Windows.Forms;
+using System.IO;
+
+namespace YimaEncNavigator
+{
+    public partial class Form_SelectMapByRect : Form
+    {
+        public Form_SelectMapByRect()
+        {
+            InitializeComponent();
+        }
+
+        public int m_iMinGeoX = 0;
+        public int m_iMaxGeoX = 0;
+        public int m_iMinGeoY = 0;
+        public int m_iMaxGeoY = 0;
+        public List<string> m_arrMaps;
+
+        private void Form_SelectMapByRect_Load(object sender, EventArgs e)
+        {
+            m_arrMaps = new List<string>();
+            this.textBox_minLon.Text = Math.Round((double)m_iMinGeoX / 10000000, 5).ToString();
+            this.textBox_maxLon.Text = Math.Round((double)m_iMaxGeoX / 10000000, 5).ToString();
+            this.textBox_minLat.Text = Math.Round((double)m_iMinGeoY / 10000000, 5).ToString();
+            this.textBox_maxLat.Text = Math.Round((double)m_iMaxGeoY / 10000000, 5).ToString();
+            InitStyle();
+            SelectMap();
+        }
+
+        private void InitStyle()
+        {
+            DataGridView curDataGridView = this.dataGridView1;
+            curDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;//选中整行
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            curDataGridView.AllowUserToAddRows = false;
+            curDataGridView.AllowUserToDeleteRows = false;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.LightCyan;
+            curDataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            curDataGridView.BackgroundColor = System.Drawing.Color.White;
+            curDataGridView.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            curDataGridView.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+
+            //头样式
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;//211, 223, 240
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.AliceBlue;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            curDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            curDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            curDataGridView.EnableHeadersVisualStyles = false;
+            curDataGridView.GridColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            curDataGridView.ReadOnly = true;
+            curDataGridView.RowHeadersVisible = false;
+            curDataGridView.RowTemplate.ReadOnly = true;
+        }
+
+        private void SelectMap()
+        {
+            m_arrMaps.Clear();
+            int iSelectMapCount = 0;
+            this.dataGridView1.Rows.Clear();
+            int iLibMapCount = ((FormMain)this.Owner).ymEncCtrl.GetLibMapCount();
+            for (int iMapPos = 0; iMapPos < iLibMapCount; iMapPos++)
+            {
+                string strMapName = new string('\0', 255);
+                string mapType = new string('\0', 50);
+                float scale = 0;
+                int up, down, left, right, edtion, update;
+                up = down = left = right = edtion = update = 0;
+                int a7, a8, a9, a10;
+                a7 = a8 = a9 = a10 = 0;
+                string str1 = "";
+                ((FormMain)this.Owner).ymEncCtrl.GetLibMapInfo(iMapPos, ref mapType, ref strMapName, ref  scale, ref left, ref right, ref up, ref down, ref edtion, ref update, ref a7, ref a8, ref a9, ref a10, ref str1);
+                if (up < m_iMinGeoY || down > m_iMaxGeoY || left > m_iMaxGeoX || right < m_iMinGeoX)
+                {
+                    continue;
+                }
+                strMapName = strMapName.Replace("\0", "");
+                int rectPos = this.dataGridView1.Rows.Add();
+                this.dataGridView1.Rows[rectPos].Cells["Pos"].Value = iMapPos;
+                this.dataGridView1.Rows[rectPos].Cells["name"].Value = strMapName;
+                this.dataGridView1.Rows[rectPos].Cells["minLon"].Value = Math.Round((double)left / 10000000,5);
+                this.dataGridView1.Rows[rectPos].Cells["maxLon"].Value = Math.Round((double)right / 10000000, 5);
+                this.dataGridView1.Rows[rectPos].Cells["minLat"].Value = Math.Round((double)down / 10000000, 5);
+                this.dataGridView1.Rows[rectPos].Cells["maxLat"].Value = Math.Round((double)up / 10000000, 5);
+                this.dataGridView1.Rows[rectPos].Cells["scale"].Value = scale;
+                iSelectMapCount++;
+
+                m_arrMaps.Add(strMapName);
+            }
+
+            this.groupBox1.Text = "当前选择图幅数量:" + iSelectMapCount.ToString();
+        }
+
+        private void btn_Select_Click(object sender, EventArgs e)
+        {
+            string strMinLon = this.textBox_minLon.Text.Trim();
+            string strMaxLon = this.textBox_maxLon.Text.Trim();
+            string strMinLat = this.textBox_minLat.Text.Trim();
+            string strMaxLat = this.textBox_maxLat.Text.Trim();
+
+            try
+            {
+                this.m_iMinGeoX = (int)(Convert.ToDouble(strMinLon) * 10000000);
+                this.m_iMaxGeoX = (int)(Convert.ToDouble(strMaxLon) * 10000000);
+                this.m_iMinGeoY = (int)(Convert.ToDouble(strMinLat) * 10000000);
+                this.m_iMaxGeoY = (int)(Convert.ToDouble(strMaxLat) * 10000000);
+                SelectMap();
+            }
+            catch (Exception er)
+            {
+                MessageBox.Show("请输入正确的经纬度值！");
+            }
+        }
+
+        private void btn_Save_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("是否提取海图数据？", "提示", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+            {
+                CopyInAreaMaps();
+            }
+        }
+
+        private void CopyInAreaMaps()
+        {
+            int iCount = m_arrMaps.Count;
+            if (iCount > 0)
+            {
+                string strSoucePath = this.textBox_mapPath.Text;
+                int iSaveCount = 0;
+                if (!System.IO.Directory.Exists(strSoucePath))
+                {
+                    MessageBox.Show("选择的海图路径不对，请确认！！");
+                    this.textBox_mapPath.Focus();
+                    return;
+                }
+                string strDestDir = Path.Combine(strSoucePath, "CopyMap");
+                if (!System.IO.Directory.Exists(strDestDir))
+                {
+                    System.IO.Directory.CreateDirectory(strDestDir);// 目录不存在，建立目录
+                }
+                DirectoryInfo dir = new DirectoryInfo(@strSoucePath);
+                FileInfo[] allFile = dir.GetFiles();
+                for (int i = 0; i < allFile.Length; i++)
+                {
+                    string fileName = allFile[i].Name;
+                    for (int j = 0; j < iCount; j++)
+                    {
+                        if (fileName.IndexOf(m_arrMaps[j]) > -1)
+                        {
+                            string strSouceFielName = Path.Combine(strSoucePath, fileName);
+                            if (!System.IO.File.Exists(strSouceFielName))
+                            {
+                                continue;
+                            }
+
+                            string strDestFielName = Path.Combine(strDestDir, fileName);
+                            System.IO.File.Copy(strSouceFielName, strDestFielName);
+                            iSaveCount++;
+                        }
+                    }
+                }
+
+                MessageBox.Show("提取海图数量:" + iSaveCount + ",包括路径：" + strDestDir);
+            }
+
+           
+        }
+    }
+}

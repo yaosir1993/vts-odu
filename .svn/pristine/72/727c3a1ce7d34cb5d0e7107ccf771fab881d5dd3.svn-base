@@ -1,0 +1,79 @@
+﻿using AxYIMAENCLib;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.Linq;
+using System.Runtime.InteropServices;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace YimaEncNavigator
+{
+    [Serializable]
+    public class CRadar
+    {
+        public int radarID { get; set; } //雷达ID
+        public int radarMapID { get; set; } //雷达在海图中的ID
+        public String radarName { get; set; }    //雷达名称
+        public double radarScanRadius { get; set; }   //雷达扫描半径
+        public double radarPixelRadius { get; set; }   //雷达基站像素半径
+        public int radarHeight { get; set; }    //雷达高度
+        public double radarAngle { get; set; }   //雷达安装角度
+        public int radarGeoPosX { get; set; }    //雷达经纬度坐标X
+        public int radarGeoPosY { get; set; }   //雷达经纬度坐标Y
+        public int radarMapPos { get; set; }
+        public int radarUseOrNot { get; set; }  //雷达是否启用
+        public int radarShowType { get; set; }  //0 完全显示 1余晖显示
+        public int radarShowColor { get; set; }  //雷达显示颜色
+        [NonSerialized]
+        public int indexList = 0;
+        [NonSerialized]
+        public List<String> packages = null;
+
+        public CRadar() { }
+
+        public CRadar(int _radarID, String _radarName, double _radarScanRadius,
+            int _radarHeight, double _radarAngle, int _radarGeoPosX,
+            int _radarGeoPosY, int _radarUseOrNot)
+        {
+            radarID = _radarID;
+            radarName = _radarName;
+            radarScanRadius = _radarScanRadius;
+            radarHeight = _radarHeight;
+            radarAngle = _radarAngle;
+            radarGeoPosX = _radarGeoPosX;
+            radarGeoPosY = _radarGeoPosY;
+            radarUseOrNot = _radarUseOrNot;
+            packages = new List<String>();
+        }
+
+        /// <summary>
+        /// 判断两个雷达相同
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+            {
+                return false;
+            }
+            if ((obj.GetType().Equals(this.GetType())) == false)
+            {
+                return false;
+            }
+            CRadar radar = (CRadar)obj;
+            return this.radarID.Equals(radar.radarID);
+        }
+
+        /// <summary>
+        /// 重写GetHashCode方法（重写Equals方法必须重写GetHashCode方法，否则发生警告
+        /// </summary>
+        /// <returns></returns>
+        public override int GetHashCode()
+        {
+            return this.radarID.GetHashCode();
+        }
+    }
+}

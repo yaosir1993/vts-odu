@@ -1,0 +1,534 @@
+﻿namespace YimaEncNavigator
+{
+    partial class FormAddRouteByTwoPoints
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.bt_ok = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.tb_ilondeg = new System.Windows.Forms.TextBox();
+            this.tb_dist = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.tb_ilonmin = new System.Windows.Forms.TextBox();
+            this.tb_ilonside = new System.Windows.Forms.TextBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.tb_ilatdeg = new System.Windows.Forms.TextBox();
+            this.tb_ilatmin = new System.Windows.Forms.TextBox();
+            this.tb_ilatside = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.tb_flatside = new System.Windows.Forms.TextBox();
+            this.tb_flonside = new System.Windows.Forms.TextBox();
+            this.tb_flatdeg = new System.Windows.Forms.TextBox();
+            this.tb_flatmin = new System.Windows.Forms.TextBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.tb_flondeg = new System.Windows.Forms.TextBox();
+            this.tb_flonmin = new System.Windows.Forms.TextBox();
+            this.label21 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.tb_routeWayPointSize = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.lb_constantx = new System.Windows.Forms.Label();
+            this.bt_cancel = new System.Windows.Forms.Button();
+            this.lb_constantk = new System.Windows.Forms.Label();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
+            this.SuspendLayout();
+            // 
+            // bt_ok
+            // 
+            this.bt_ok.Location = new System.Drawing.Point(270, 184);
+            this.bt_ok.Name = "bt_ok";
+            this.bt_ok.Size = new System.Drawing.Size(75, 23);
+            this.bt_ok.TabIndex = 0;
+            this.bt_ok.Text = "确定";
+            this.bt_ok.UseVisualStyleBackColor = true;
+            this.bt_ok.Click += new System.EventHandler(this.bt_ok_Click);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(6, 25);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(35, 12);
+            this.label3.TabIndex = 3;
+            this.label3.Text = "经度:";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(6, 56);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(35, 12);
+            this.label5.TabIndex = 5;
+            this.label5.Text = "纬度:";
+            // 
+            // tb_ilondeg
+            // 
+            this.tb_ilondeg.Location = new System.Drawing.Point(47, 21);
+            this.tb_ilondeg.Name = "tb_ilondeg";
+            this.tb_ilondeg.Size = new System.Drawing.Size(53, 21);
+            this.tb_ilondeg.TabIndex = 7;
+            this.tb_ilondeg.TextChanged += new System.EventHandler(this.tb_TextChanged);
+            // 
+            // tb_dist
+            // 
+            this.tb_dist.Location = new System.Drawing.Point(362, 34);
+            this.tb_dist.Name = "tb_dist";
+            this.tb_dist.ReadOnly = true;
+            this.tb_dist.Size = new System.Drawing.Size(89, 21);
+            this.tb_dist.TabIndex = 12;
+            this.tb_dist.Text = "0";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(103, 25);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(17, 12);
+            this.label7.TabIndex = 13;
+            this.label7.Text = "度";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(180, 25);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(17, 12);
+            this.label9.TabIndex = 15;
+            this.label9.Text = "分";
+            // 
+            // tb_ilonmin
+            // 
+            this.tb_ilonmin.Location = new System.Drawing.Point(129, 21);
+            this.tb_ilonmin.Name = "tb_ilonmin";
+            this.tb_ilonmin.Size = new System.Drawing.Size(48, 21);
+            this.tb_ilonmin.TabIndex = 21;
+            this.tb_ilonmin.TextChanged += new System.EventHandler(this.tb_TextChanged);
+            // 
+            // tb_ilonside
+            // 
+            this.tb_ilonside.BackColor = System.Drawing.Color.White;
+            this.tb_ilonside.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tb_ilonside.Location = new System.Drawing.Point(203, 20);
+            this.tb_ilonside.Name = "tb_ilonside";
+            this.tb_ilonside.ReadOnly = true;
+            this.tb_ilonside.Size = new System.Drawing.Size(27, 23);
+            this.tb_ilonside.TabIndex = 25;
+            this.tb_ilonside.Text = "E";
+            this.tb_ilonside.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tb_ilonside.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tb_ilonside_MouseDown);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.tb_ilatdeg);
+            this.groupBox1.Controls.Add(this.tb_ilatmin);
+            this.groupBox1.Controls.Add(this.tb_ilatside);
+            this.groupBox1.Controls.Add(this.label15);
+            this.groupBox1.Controls.Add(this.label16);
+            this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Controls.Add(this.label5);
+            this.groupBox1.Controls.Add(this.tb_ilondeg);
+            this.groupBox1.Controls.Add(this.tb_ilonmin);
+            this.groupBox1.Controls.Add(this.tb_ilonside);
+            this.groupBox1.Controls.Add(this.label7);
+            this.groupBox1.Controls.Add(this.label9);
+            this.groupBox1.Location = new System.Drawing.Point(12, 12);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(246, 89);
+            this.groupBox1.TabIndex = 29;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "始点";
+            // 
+            // tb_ilatdeg
+            // 
+            this.tb_ilatdeg.Location = new System.Drawing.Point(47, 52);
+            this.tb_ilatdeg.Name = "tb_ilatdeg";
+            this.tb_ilatdeg.Size = new System.Drawing.Size(53, 21);
+            this.tb_ilatdeg.TabIndex = 26;
+            this.tb_ilatdeg.TextChanged += new System.EventHandler(this.tb_TextChanged);
+            // 
+            // tb_ilatmin
+            // 
+            this.tb_ilatmin.Location = new System.Drawing.Point(130, 52);
+            this.tb_ilatmin.Name = "tb_ilatmin";
+            this.tb_ilatmin.Size = new System.Drawing.Size(48, 21);
+            this.tb_ilatmin.TabIndex = 29;
+            this.tb_ilatmin.TextChanged += new System.EventHandler(this.tb_TextChanged);
+            // 
+            // tb_ilatside
+            // 
+            this.tb_ilatside.BackColor = System.Drawing.Color.White;
+            this.tb_ilatside.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tb_ilatside.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.tb_ilatside.Location = new System.Drawing.Point(203, 50);
+            this.tb_ilatside.Name = "tb_ilatside";
+            this.tb_ilatside.ReadOnly = true;
+            this.tb_ilatside.Size = new System.Drawing.Size(27, 23);
+            this.tb_ilatside.TabIndex = 30;
+            this.tb_ilatside.Text = "N";
+            this.tb_ilatside.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tb_ilatside.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tb_ilatside_MouseDown);
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(104, 56);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(17, 12);
+            this.label15.TabIndex = 27;
+            this.label15.Text = "度";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(181, 56);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(17, 12);
+            this.label16.TabIndex = 28;
+            this.label16.Text = "分";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.tb_flatside);
+            this.groupBox2.Controls.Add(this.tb_flonside);
+            this.groupBox2.Controls.Add(this.tb_flatdeg);
+            this.groupBox2.Controls.Add(this.tb_flatmin);
+            this.groupBox2.Controls.Add(this.label17);
+            this.groupBox2.Controls.Add(this.label18);
+            this.groupBox2.Controls.Add(this.label19);
+            this.groupBox2.Controls.Add(this.label20);
+            this.groupBox2.Controls.Add(this.tb_flondeg);
+            this.groupBox2.Controls.Add(this.tb_flonmin);
+            this.groupBox2.Controls.Add(this.label21);
+            this.groupBox2.Controls.Add(this.label22);
+            this.groupBox2.Location = new System.Drawing.Point(12, 107);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(246, 89);
+            this.groupBox2.TabIndex = 30;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "终点";
+            // 
+            // tb_flatside
+            // 
+            this.tb_flatside.BackColor = System.Drawing.Color.White;
+            this.tb_flatside.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tb_flatside.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.tb_flatside.Location = new System.Drawing.Point(203, 48);
+            this.tb_flatside.Name = "tb_flatside";
+            this.tb_flatside.ReadOnly = true;
+            this.tb_flatside.Size = new System.Drawing.Size(27, 23);
+            this.tb_flatside.TabIndex = 36;
+            this.tb_flatside.Text = "N";
+            this.tb_flatside.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tb_flatside.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tb_flatside_MouseDown);
+            // 
+            // tb_flonside
+            // 
+            this.tb_flonside.BackColor = System.Drawing.Color.White;
+            this.tb_flonside.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tb_flonside.Location = new System.Drawing.Point(203, 20);
+            this.tb_flonside.Name = "tb_flonside";
+            this.tb_flonside.ReadOnly = true;
+            this.tb_flonside.Size = new System.Drawing.Size(27, 23);
+            this.tb_flonside.TabIndex = 35;
+            this.tb_flonside.Text = "E";
+            this.tb_flonside.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tb_flonside.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tb_flonside_MouseDown);
+            // 
+            // tb_flatdeg
+            // 
+            this.tb_flatdeg.Location = new System.Drawing.Point(47, 50);
+            this.tb_flatdeg.Name = "tb_flatdeg";
+            this.tb_flatdeg.Size = new System.Drawing.Size(53, 21);
+            this.tb_flatdeg.TabIndex = 26;
+            this.tb_flatdeg.TextChanged += new System.EventHandler(this.tb_TextChanged);
+            // 
+            // tb_flatmin
+            // 
+            this.tb_flatmin.Location = new System.Drawing.Point(130, 50);
+            this.tb_flatmin.Name = "tb_flatmin";
+            this.tb_flatmin.Size = new System.Drawing.Size(48, 21);
+            this.tb_flatmin.TabIndex = 29;
+            this.tb_flatmin.TextChanged += new System.EventHandler(this.tb_TextChanged);
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(104, 54);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(17, 12);
+            this.label17.TabIndex = 27;
+            this.label17.Text = "度";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(181, 54);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(17, 12);
+            this.label18.TabIndex = 28;
+            this.label18.Text = "分";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(6, 26);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(35, 12);
+            this.label19.TabIndex = 3;
+            this.label19.Text = "经度:";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(6, 54);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(35, 12);
+            this.label20.TabIndex = 5;
+            this.label20.Text = "纬度:";
+            // 
+            // tb_flondeg
+            // 
+            this.tb_flondeg.Location = new System.Drawing.Point(47, 22);
+            this.tb_flondeg.Name = "tb_flondeg";
+            this.tb_flondeg.Size = new System.Drawing.Size(53, 21);
+            this.tb_flondeg.TabIndex = 7;
+            this.tb_flondeg.TextChanged += new System.EventHandler(this.tb_TextChanged);
+            // 
+            // tb_flonmin
+            // 
+            this.tb_flonmin.Location = new System.Drawing.Point(129, 22);
+            this.tb_flonmin.Name = "tb_flonmin";
+            this.tb_flonmin.Size = new System.Drawing.Size(48, 21);
+            this.tb_flonmin.TabIndex = 21;
+            this.tb_flonmin.TextChanged += new System.EventHandler(this.tb_TextChanged);
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(103, 26);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(17, 12);
+            this.label21.TabIndex = 13;
+            this.label21.Text = "度";
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(180, 26);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(17, 12);
+            this.label22.TabIndex = 15;
+            this.label22.Text = "分";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(268, 37);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(83, 12);
+            this.label1.TabIndex = 31;
+            this.label1.Text = "总航程(海里):";
+            // 
+            // tb_routeWayPointSize
+            // 
+            this.tb_routeWayPointSize.Location = new System.Drawing.Point(97, 53);
+            this.tb_routeWayPointSize.Name = "tb_routeWayPointSize";
+            this.tb_routeWayPointSize.Size = new System.Drawing.Size(64, 21);
+            this.tb_routeWayPointSize.TabIndex = 33;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(2, 57);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(95, 12);
+            this.label4.TabIndex = 34;
+            this.label4.Text = "航路点间的距离:";
+            // 
+            // lb_constantx
+            // 
+            this.lb_constantx.AutoSize = true;
+            this.lb_constantx.Location = new System.Drawing.Point(143, 201);
+            this.lb_constantx.Name = "lb_constantx";
+            this.lb_constantx.Size = new System.Drawing.Size(77, 12);
+            this.lb_constantx.TabIndex = 35;
+            this.lb_constantx.Text = "lb_constantx";
+            this.lb_constantx.Visible = false;
+            // 
+            // bt_cancel
+            // 
+            this.bt_cancel.Location = new System.Drawing.Point(368, 184);
+            this.bt_cancel.Name = "bt_cancel";
+            this.bt_cancel.Size = new System.Drawing.Size(75, 23);
+            this.bt_cancel.TabIndex = 38;
+            this.bt_cancel.Text = "取消";
+            this.bt_cancel.UseVisualStyleBackColor = true;
+            this.bt_cancel.Click += new System.EventHandler(this.bt_cancel_Click);
+            // 
+            // lb_constantk
+            // 
+            this.lb_constantk.AutoSize = true;
+            this.lb_constantk.Location = new System.Drawing.Point(54, 201);
+            this.lb_constantk.Name = "lb_constantk";
+            this.lb_constantk.Size = new System.Drawing.Size(77, 12);
+            this.lb_constantk.TabIndex = 36;
+            this.lb_constantk.Text = "lb_constantk";
+            this.lb_constantk.Visible = false;
+            // 
+            // radioButton1
+            // 
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Checked = true;
+            this.radioButton1.Location = new System.Drawing.Point(7, 26);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(83, 16);
+            this.radioButton1.TabIndex = 39;
+            this.radioButton1.TabStop = true;
+            this.radioButton1.Text = "按距离添加";
+            this.radioButton1.UseVisualStyleBackColor = true;
+            this.radioButton1.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
+            // 
+            // radioButton2
+            // 
+            this.radioButton2.AutoSize = true;
+            this.radioButton2.Location = new System.Drawing.Point(105, 24);
+            this.radioButton2.Name = "radioButton2";
+            this.radioButton2.Size = new System.Drawing.Size(83, 16);
+            this.radioButton2.TabIndex = 40;
+            this.radioButton2.Text = "按个数添加";
+            this.radioButton2.UseVisualStyleBackColor = true;
+            this.radioButton2.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.label2);
+            this.groupBox3.Controls.Add(this.label4);
+            this.groupBox3.Controls.Add(this.radioButton2);
+            this.groupBox3.Controls.Add(this.tb_routeWayPointSize);
+            this.groupBox3.Controls.Add(this.radioButton1);
+            this.groupBox3.Location = new System.Drawing.Point(263, 78);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(200, 85);
+            this.groupBox3.TabIndex = 41;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "添加航路点的方式";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(163, 57);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(29, 12);
+            this.label2.TabIndex = 41;
+            this.label2.Text = "海里";
+            // 
+            // FormAddRouteByTwoPoints
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(467, 219);
+            this.Controls.Add(this.groupBox3);
+            this.Controls.Add(this.bt_cancel);
+            this.Controls.Add(this.lb_constantk);
+            this.Controls.Add(this.lb_constantx);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.tb_dist);
+            this.Controls.Add(this.bt_ok);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+            this.Name = "FormAddRouteByTwoPoints";
+            this.Text = "添加大圆航线";
+            this.Load += new System.EventHandler(this.FormAddRouteByTwoPoints_Load);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.Button bt_ok;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox tb_ilondeg;
+        private System.Windows.Forms.TextBox tb_dist;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox tb_ilonmin;
+        private System.Windows.Forms.TextBox tb_ilonside;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.TextBox tb_ilatdeg;
+        private System.Windows.Forms.TextBox tb_ilatmin;
+        private System.Windows.Forms.TextBox tb_ilatside;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.TextBox tb_flatdeg;
+        private System.Windows.Forms.TextBox tb_flatmin;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.TextBox tb_flondeg;
+        private System.Windows.Forms.TextBox tb_flonmin;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox tb_routeWayPointSize;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox tb_flatside;
+        private System.Windows.Forms.TextBox tb_flonside;
+        private System.Windows.Forms.Label lb_constantx;
+        private System.Windows.Forms.Button bt_cancel;
+        private System.Windows.Forms.Label lb_constantk;
+        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.RadioButton radioButton2;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Label label2;
+    }
+}

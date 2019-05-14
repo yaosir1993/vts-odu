@@ -1,0 +1,479 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Text;
+using System.Windows.Forms;
+
+namespace YimaEncNavigator
+{
+    public partial class FormAddRouteByTwoPoints : Form
+    {
+        const int UNI_GEO_COOR_MULTI_FACTOR = 10000000;
+        int geoCoorMultiFactor;//经纬度坐标乘积因子 
+        int[] newTotalWpCount = new int[1000];//保存新航线的航路点ID
+        M_POINT[] wayPoints = new M_POINT[100000];
+        int curWayPointID;
+        int i = 0;
+        double inlat;
+        double inlon;
+        double fnlat;
+        double fnlon;
+        public FormAddRouteByTwoPoints()
+        {
+            InitializeComponent();
+        }
+
+        private void FormAddRouteByTwoPoints_Load(object sender, EventArgs e)
+        {
+            geoCoorMultiFactor = ((FormMain)this.Owner).ymEncCtrl.GetGeoCoorMultiFactor();
+        }
+
+        private void finsAndSetRoutePoint(double curLon)
+        {
+            int geoPoX = (int)(curLon * geoCoorMultiFactor);
+            string str_x = this.lb_constantx.Text.Trim();
+            string str_k = this.lb_constantk.Text.Trim();
+            if (!CheckInfo.isNumber(str_x, 2) || !CheckInfo.isNumber(str_k, 2))
+            {
+                return;
+            }
+
+            double wlat = 0;
+            double wrlat = 0;
+            double z = 0;
+
+            if (curLon < 0)
+            {
+                curLon = curLon + 360;
+            }
+
+            z = curLon * Math.PI / 180 - Convert.ToDouble(str_x);
+            if (z < 0)
+            {
+                z = z + (2 * Math.PI);
+            }
+
+            wrlat = Math.Atan(Math.Sin(z) * Convert.ToDouble(str_k));
+            wlat = wrlat * 180 / Math.PI;
+            
+            int geoPoY = (int)(wlat * geoCoorMultiFactor);
+
+            //((Form1)this.Owner).ymEncCtrl.AddWayPoint(geoPoX, geoPoY, "wp1");            
+            //newTotalWpCount[i] = curWayPointID;
+            wayPoints[i] = new M_POINT(geoPoX, geoPoY);
+            //curWayPointID++;
+            i++;
+        }
+
+        private void bt_ok_Click(object sender, EventArgs e)
+        {
+            string str_dist = this.tb_dist.Text.ToString().Trim();
+            if (str_dist.Equals("0") || str_dist.Equals(""))
+            {
+                MessageBox.Show("请确认输入的大圆航线始点和终点是否正确。");
+                return;
+            }
+            string str_WayPointSize = this.tb_routeWayPointSize.Text.ToString().Trim();
+            if (str_WayPointSize.Equals("") || !CheckInfo.isNumber(str_WayPointSize, 2))
+            {
+                MessageBox.Show("请确认航线的航路点数量是否正确。");
+                this.tb_routeWayPointSize.Focus();
+                return;
+            }
+
+            int totalWpCount = ((FormMain)this.Owner).ymEncCtrl.GetWayPointsCount();//获取添加前航路点的数量
+            curWayPointID = totalWpCount + 1;
+
+            double num = 0;
+
+            double wayPointSize = Convert.ToDouble(str_WayPointSize);
+
+            if (radioButton1.Checked)
+            {
+                num = Convert.ToDouble(str_dist)*2;
+                if (num > 100000)
+                {
+                    num = 100000;
+                }
+            }
+            else
+            {
+                num = 1 + Convert.ToInt32(wayPointSize);
+            }
+
+            finsAndSetRoutePoint(inlon);//添加始航路点
+
+            if (inlon == fnlon)//假如始点和终点的经度一样，则该经度就是一个大圆的其中一半！
+            {
+                int geoPoX = (int)(inlon * geoCoorMultiFactor);
+                int geoPoY;
+                double addStep = Math.Abs(inlat - fnlat) / num;
+                if (inlat > fnlat)//--
+                {
+                    for (double d = inlat - addStep; d > fnlat + addStep*0.1; d -= addStep)
+                    {                        
+                        geoPoY = (int)(d * geoCoorMultiFactor);
+                        wayPoints[i] = new M_POINT(geoPoX, geoPoY);
+                        i++;
+                    }
+                }
+                else//++
+                {
+                    for (double d = inlat + addStep; d < fnlat - addStep*0.1; d += addStep)
+                    {
+                        geoPoY = (int)(d * geoCoorMultiFactor);
+                        wayPoints[i] = new M_POINT(geoPoX, geoPoY);
+                        i++;
+                    }
+                }
+            }
+            else
+            {
+                if ((inlon * fnlon) > 0)//起点、终点的经度同号
+                {
+                    double addStep = Math.Abs(inlon - fnlon) / num;
+                    if (inlon > fnlon)
+                    {
+                        for (double d = inlon - addStep; d > fnlon + addStep*0.1; d -= addStep)
+                        {
+                            finsAndSetRoutePoint(d);
+                        }
+                    }
+                    else
+                    {
+                        for (double d = inlon + addStep; d < fnlon - addStep*0.1; d += addStep)
+                        {
+                            finsAndSetRoutePoint(d);
+                        }
+                    }
+                }
+                else
+                {
+                    if (inlon > fnlon)//起点在东经
+                    {
+                        if ((360 - inlon + fnlon) < (inlon - fnlon))
+                        {
+                            //加到curLon>180度后，变为curLon-360
+                            double addStep = (360 - inlon + fnlon) / num;
+                            double d = inlon + addStep;
+
+                            for (; d < 180; d += addStep)
+                            {
+                                finsAndSetRoutePoint(d);
+                            }
+                            d -= 360;
+                            for (; d < fnlon - addStep; d += addStep)
+                            {
+                                finsAndSetRoutePoint(d);
+                            }
+                        }
+                        else
+                        {
+                            double addStep = Math.Abs(inlon - fnlon) / num;
+                            for (double d = inlon - addStep; d > fnlon + addStep*0.1; d -= addStep)
+                            {
+                                finsAndSetRoutePoint(d);
+                            }
+                        }
+                    }
+                    else//起点在西经
+                    {
+                        if ((fnlon - inlon) < (360 + inlon - fnlon))
+                        {
+                            double addStep = Math.Abs(inlon - fnlon) / num;
+                            for (double d = inlon + addStep; d < fnlon - addStep*0.1; d += addStep)
+                            {
+                                finsAndSetRoutePoint(d);
+                            }
+                        }
+                        else
+                        {
+                            //减到curLon<-180的时候，变为360+curLon
+                            double addStep = (360 + inlon - fnlon) / num;
+                            double d = inlon - addStep;
+                            for (; d > -180; d -= addStep)
+                            {
+                                finsAndSetRoutePoint(d);
+                            }
+                            d += 360;
+                            for (; d > fnlon + addStep*0.1; d -= addStep)
+                            {
+                                finsAndSetRoutePoint(d);
+                            }
+                        }
+                    }
+                }            
+            }
+            
+            finsAndSetRoutePoint(fnlon);//添加终点航路点
+
+            int routeCount = ((FormMain)this.Owner).ymEncCtrl.GetRoutesCount();
+            string newRouteName = "Route " + (routeCount+1).ToString();//确定添加的大圆航线名称
+
+            int wpCount = 0;
+            if (radioButton1.Checked)
+            {
+                
+                int iStartGeoX = wayPoints[0].x;
+                int iStartGeoY = wayPoints[0].y;
+                int iEndGeoX = 0;
+                int iEndGeoY = 0;
+                ((FormMain)this.Owner).ymEncCtrl.AddWayPoint(iStartGeoX, iStartGeoY, "wp1");
+                newTotalWpCount[wpCount] = curWayPointID;
+                curWayPointID++;
+                wpCount = wpCount + 1;
+
+                for (int j = 1; j < i; j++)
+                {
+                    iEndGeoX = wayPoints[j].x;
+                    iEndGeoY = wayPoints[j].y;
+                    double dist = ((FormMain)this.Owner).ymEncCtrl.GetDistBetwTwoPoint(iStartGeoX, iStartGeoY, iEndGeoX, iEndGeoY);
+
+                    if (dist >= wayPointSize)
+                    {
+                        ((FormMain)this.Owner).ymEncCtrl.AddWayPoint(iEndGeoX, iEndGeoY, "wp1");
+                        newTotalWpCount[wpCount] = curWayPointID;
+                        curWayPointID++;
+                        iStartGeoX = iEndGeoX;
+                        iStartGeoY = iEndGeoY;
+                        wpCount = wpCount + 1;
+                    }
+                }
+                if (iStartGeoX != iEndGeoX || iStartGeoY != iEndGeoY)
+                {
+                    ((FormMain)this.Owner).ymEncCtrl.AddWayPoint(iEndGeoX, iEndGeoY, "wp1");
+                    newTotalWpCount[wpCount] = curWayPointID;
+                    wpCount = wpCount + 1;
+
+                }
+            }
+            else
+            {
+                for (int j = 0; j < i; j++)
+                {
+                    int geoPoX = wayPoints[j].x;
+                    int geoPoY = wayPoints[j].y;
+                    ((FormMain)this.Owner).ymEncCtrl.AddWayPoint(geoPoX, geoPoY, "wp1");
+                    newTotalWpCount[wpCount] = curWayPointID;
+                    curWayPointID++;
+                    wpCount = wpCount + 1;
+                }
+            }
+
+            string strRouteWAyPointIDs = InteropEncDotNet.GetStringFromIntArray(newTotalWpCount, wpCount);//把大圆航线的航路点转换成字符串
+            ((FormMain)this.Owner).ymEncCtrl.AddRoute(ref strRouteWAyPointIDs, newRouteName, wpCount, false);//添加大圆航线
+
+            this.Close();
+        }
+
+        private void tb_TextChanged(object sender, EventArgs e)
+        {
+            lb_constantk.Text = "";            
+            //始点
+            string str_ilatdeg = tb_ilatdeg.Text.ToString().Trim();
+            string str_ilatmin = tb_ilatmin.Text.ToString().Trim();
+            string str_ilondeg = tb_ilondeg.Text.ToString().Trim();
+            string str_ilonmin = tb_ilonmin.Text.ToString().Trim();
+
+            //终点
+            string str_flatdeg = tb_flatdeg.Text.ToString().Trim();
+            string str_flatmin = tb_flatmin.Text.ToString().Trim();
+            string str_flondeg = tb_flondeg.Text.ToString().Trim();
+            string str_flonmin = tb_flonmin.Text.ToString().Trim();
+
+            #region 判断输入始点终点的经纬度是否正确
+            //始点
+            if (str_ilatdeg.Equals("") || str_ilatmin.Equals("") || str_ilondeg.Equals("") || str_ilonmin.Equals(""))
+            {
+                return;
+            }
+            else if(!CheckInfo.isNumber(str_ilatdeg,0) || !CheckInfo.isNumber(str_ilatmin,2) || !CheckInfo.isNumber(str_ilondeg,0) || !CheckInfo.isNumber(str_ilonmin,2))
+            {
+                MessageBox.Show("请确定始点的经纬度是否正确。");
+                return;
+            }
+            else if (Convert.ToDouble(str_ilatdeg) > 90 || Convert.ToDouble(str_ilatmin) >= 60 || Convert.ToDouble(str_ilondeg) > 180 || Convert.ToDouble(str_ilonmin) >= 60)
+            {
+                MessageBox.Show("请确定始点的经纬度是否正确。");
+                return;
+            }
+
+            //终点
+            if (str_flatdeg.Equals("") || str_flatmin.Equals("") || str_flondeg.Equals("") || str_flonmin.Equals(""))
+            {
+                return;
+            }
+            else if (!CheckInfo.isNumber(str_flatdeg, 0) || !CheckInfo.isNumber(str_flatmin, 2) || !CheckInfo.isNumber(str_flondeg, 0) || !CheckInfo.isNumber(str_flonmin, 2))
+            {
+                MessageBox.Show("请确定终点的经纬度是否正确。");
+                return;
+            }
+            else if (Convert.ToDouble(str_flatdeg) > 90 || Convert.ToDouble(str_flatmin) >= 60 || Convert.ToDouble(str_flondeg) > 180 || Convert.ToDouble(str_flonmin) >= 60)
+            {
+                MessageBox.Show("请确定终点的经纬度是否正确。");
+                return;
+            }
+            #endregion
+
+            //经纬度转换成坐标值
+            inlat = dm2deg(Convert.ToDouble(str_ilatdeg), Convert.ToDouble(str_ilatmin), tb_ilatside.Text.ToString().Trim());
+            inlon = dm2deg(Convert.ToDouble(str_ilondeg), Convert.ToDouble(str_ilonmin), tb_ilonside.Text.ToString().Trim());
+            fnlat = dm2deg(Convert.ToDouble(str_flatdeg), Convert.ToDouble(str_flatmin), tb_flatside.Text.ToString().Trim());
+            fnlon = dm2deg(Convert.ToDouble(str_flondeg), Convert.ToDouble(str_flonmin), tb_flonside.Text.ToString().Trim());
+
+            if (inlat == fnlat && inlon == fnlon)//始点和终点同一个点时返回
+            {
+                tb_dist.Text = "0";
+                return;
+            }
+
+            double dlon = fnlon - inlon;
+            double sgndlon = 0 - (dlon / Math.Abs(dlon));
+
+            if (Math.Abs(dlon) > 180)
+            {
+                dlon = (360 - Math.Abs(dlon)) * sgndlon;
+            }
+
+            double rinlat = inlat * Math.PI / 180;
+            double rinlon = inlon * Math.PI / 180;
+            double rfnlat = fnlat * Math.PI / 180;
+            double rdlon = dlon * Math.PI / 180;
+            double rgcdist = (Math.Sin(rinlat) * Math.Sin(rfnlat) + Math.Cos(rinlat) * Math.Cos(rfnlat) * Math.Cos(rdlon));
+            rgcdist = Math.Acos(rgcdist);
+            double gcdist = rgcdist * 180 / Math.PI;
+
+            if (gcdist == 180)
+            {
+                tb_dist.Text = "error";
+                return;
+            }
+
+            double rincourse = (Math.Sin(rfnlat) - Math.Cos(rgcdist) * Math.Sin(rinlat)) / (Math.Sin(rgcdist) * Math.Cos(rinlat));
+            rincourse = Math.Acos(rincourse);
+            double incourse = rincourse * 180 / Math.PI;
+            if (dlon < 0)
+            {
+                incourse = 360 - incourse;
+            }
+
+            double aa = Math.Abs(gcdist)*60;
+
+            tb_dist.Text = aa.ToString();
+
+            rincourse = incourse * Math.PI / 180;
+            double rcontx = Math.Atan(Math.Sin(rinlat) * Math.Tan(rincourse));
+            if (Math.Tan(rincourse) < 0)
+            {
+                rcontx = rcontx + Math.PI;
+            }
+
+            double rcontn = rinlon;
+            if (rinlon < 0)
+            {
+                rcontn = rcontn + (2 * Math.PI);
+            }
+
+            rcontx = rcontn - rcontx;
+            if (rcontx < 0)
+            {
+                rcontx = rcontx + (2 * Math.PI);
+            }
+            if (rcontx > 2 * Math.PI)
+            {
+                rcontx = rcontx - (2 * Math.PI);
+            }
+            lb_constantx.Text = rcontx.ToString().Trim();
+
+            double rcontk = Math.Acos(Math.Sin(rincourse) * Math.Cos(rinlat));
+            if (rcontk == Math.PI / 2)
+            { 
+                lb_constantk.Text = "polar";
+                return;
+            }
+            rcontk = Math.Abs(Math.Tan(rcontk));
+            lb_constantk.Text = rcontk.ToString().Trim();
+        }
+
+        private double dm2deg(double deg, double min,string inside)
+        {
+            int insign = 1;
+            if (inside.Equals("S") || inside.Equals("W"))
+            {
+                insign = -1;
+            }
+            return (deg + min / 60) * insign;
+        }
+
+        private void tb_ilonside_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (this.tb_ilonside.Text.ToString().Equals("E"))
+            {
+                this.tb_ilonside.Text = "W";
+            }
+            else
+            {
+                this.tb_ilonside.Text = "E";
+            }
+            tb_TextChanged(sender, e);
+        }
+
+        private void tb_ilatside_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (this.tb_ilatside.Text.ToString().Equals("N"))
+            {
+                this.tb_ilatside.Text = "S";
+            }
+            else
+            {
+                this.tb_ilatside.Text = "N";
+            }
+            tb_TextChanged(sender, e);
+        }
+
+        private void tb_flonside_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (this.tb_flonside.Text.ToString().Equals("E"))
+            {
+                this.tb_flonside.Text = "W";
+            }
+            else
+            {
+                this.tb_flonside.Text = "E";
+            }
+            tb_TextChanged(sender, e);
+        }
+
+        private void tb_flatside_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (this.tb_flatside.Text.ToString().Equals("N"))
+            {
+                this.tb_flatside.Text = "S";
+            }
+            else
+            {
+                this.tb_flatside.Text = "N";
+            }
+            tb_TextChanged(sender, e);
+        }
+
+        private void bt_cancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+            this.label4.Text = "航路点间的距离:";
+            this.label2.Text = "海里";
+        }
+
+        private void radioButton2_CheckedChanged(object sender, EventArgs e)
+        {
+            this.label4.Text = "航路点的个数:";
+            this.label2.Text = "个";
+        }  
+    }
+}

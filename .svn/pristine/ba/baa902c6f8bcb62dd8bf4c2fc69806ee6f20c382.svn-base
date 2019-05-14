@@ -1,0 +1,330 @@
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+//using System.Linq;
+using System.Text;
+//using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace YimaEncNavigator
+{
+    public partial class Form_PlayShipHistoryTrackMan : Form
+    {
+        public int m_iAreaLayerPos;
+        public int m_iAreaPos;
+        public ArrayList m_arrCurPlayShipInfo = new ArrayList();//轨迹回放的船舶
+        public int m_iPlayType = 0;//回放的类型:0=船舶回放，1=区域回放
+        public ArrayList m_arrPlayAreaGeoPo = new ArrayList();//区域回放的区域节点信息
+        public int m_iPlayTimeCount = 0;//轨迹回放的时间
+        public bool m_bDragTimeBar = false;//是否拽动进度条
+
+        public Form_PlayShipHistoryTrackMan()
+        {
+            InitializeComponent();
+        }
+
+        private void Form_PlayShipHostoryTrackMan_Load(object sender, EventArgs e)
+        {
+            InitSpeedComboBox();
+            ShowShipNameList();
+            this.timer1.Start();
+            InitValue();
+        }
+        
+
+        private void InitValue()
+        {
+            ((FormMain)this.Owner).m_mPlayHistoryTrackState = SHIP_PLAY_HISTORY_TRACK_STATE.HISTORY_TRACK_Stop;
+
+            int iStartTime = ((FormMain)this.Owner).m_playHistoryShipMan.iStartPlayTime;
+            int iEndTime = ((FormMain)this.Owner).m_playHistoryShipMan.iEndPlayTime;
+            this.label_startTime.Text = InteropEncDotNet.Int2DataTime(iStartTime).ToString();
+            this.label_endTime.Text = InteropEncDotNet.Int2DataTime(iEndTime).ToString();
+
+            int iPlayTimeCount = iEndTime - iStartTime;
+            TimeSpan curTime = new TimeSpan(0, 0, 0, iPlayTimeCount);
+            int s = curTime.Seconds;
+            int m = curTime.Minutes;
+            int h = curTime.Hours;
+            int d = curTime.Days;
+            string strTimeTotal = "";
+            if(d > 0)
+            {
+                strTimeTotal += d.ToString() + "天 ";
+            }
+            strTimeTotal += h.ToString() + ":" + m.ToString() + ":" + s.ToString();
+            this.label_timeTotal.Text = "全程时间: " + strTimeTotal;
+
+            RefrshButtonState();
+
+            m_iAreaLayerPos = -1;
+            m_iAreaPos = -1;
+        }
+
+        private void InitSpeedComboBox()
+        {
+            this.comboBox_palySpeed.Items.Add("1秒/秒");
+            this.comboBox_palySpeed.Items.Add("1分钟/秒");
+            this.comboBox_palySpeed.Items.Add("10分钟/秒");
+            this.comboBox_palySpeed.Items.Add("30分钟/秒");
+            this.comboBox_palySpeed.Items.Add("1小时/秒");
+            this.comboBox_palySpeed.Items.Add("10小时/秒");
+            this.comboBox_palySpeed.Items.Add("1天/秒");
+            this.comboBox_palySpeed.SelectedIndex = 1;
+        }
+
+        public void ShowShipNameList()
+        {
+            this.listBox_ship.Items.Clear();
+
+            int iCurPlayShipCount = ((FormMain)this.Owner).m_playHistoryShipMan.arrPlayHistoryShipInfo.Count;
+            for(int i = 0; i <iCurPlayShipCount;i++)
+            {
+                Play_HistoryTrack_Ship curPlayShipInfo = (Play_HistoryTrack_Ship)((FormMain)this.Owner).m_playHistoryShipMan.arrPlayHistoryShipInfo[i];
+
+                this.listBox_ship.Items.Add(curPlayShipInfo.shipName);
+            }
+
+            this.groupBox_shipList.Text = "船舶数量(" +iCurPlayShipCount.ToString() + ")";
+
+            m_iPlayTimeCount = ((FormMain)this.Owner).m_playHistoryShipMan.iEndPlayTime - ((FormMain)this.Owner).m_playHistoryShipMan.iStartPlayTime;
+        }
+
+        private void listBox_ship_DoubleClick(object sender, EventArgs e)
+        {
+            int index = this.listBox_ship.SelectedIndex;
+            if (index != -1)
+            {
+                Play_HistoryTrack_Ship curPlayShipInfo = (Play_HistoryTrack_Ship)((FormMain)this.Owner).m_playHistoryShipMan.arrPlayHistoryShipInfo[index];
+                Track_Info curTrackInfo = new Track_Info();
+                bool bShipShow = curPlayShipInfo.GetCurShipPlayTrackInfo(ref curTrackInfo);
+                if (bShipShow)
+                {
+                    ((FormMain)this.Owner).ymEncCtrl.CenterMap(curTrackInfo.mGeoPo.x, curTrackInfo.mGeoPo.y);
+                    ((FormMain)this.Owner).RedrawMapScreen();
+                }
+                else
+                {
+                    MessageBox.Show("船舶尚未显示！");
+                }
+            }
+        }
+
+        //回放船舶
+        private void button_play_Click(object sender, EventArgs e)
+        {
+            ((FormMain)this.Owner).m_mPlayHistoryTrackState = SHIP_PLAY_HISTORY_TRACK_STATE.HISTORY_TRACK_Playing;
+            RefreshPlaySpeed();
+            RefrshButtonState();
+        }
+
+        //暂停
+        private void button_stop_Click(object sender, EventArgs e)
+        {
+            ((FormMain)this.Owner).m_mPlayHistoryTrackState = SHIP_PLAY_HISTORY_TRACK_STATE.HISTORY_TRACK_Stop;
+
+            RefrshButtonState();
+        }
+
+        //后退
+        private void button_goback_Click(object sender, EventArgs e)
+        {
+            int iStep = ((FormMain)this.Owner).m_playHistoryShipMan.iCurPlayStep;
+            ((FormMain)this.Owner).SetShipHistoryPlayTrack_Back(iStep * 5);
+            RefeshTimeBarValue();
+
+            RefrshButtonState();
+            
+        }
+
+        //前进
+        private void button_goAhead_Click(object sender, EventArgs e)
+        {
+            int iStep = ((FormMain)this.Owner).m_playHistoryShipMan.iCurPlayStep;
+            ((FormMain)this.Owner).SetShipHistoryPlayTrack_Ahead(iStep * 5);
+            RefeshTimeBarValue();
+
+            RefrshButtonState();
+        }
+
+        //刷新按钮
+        private void RefrshButtonState()
+        {
+            if (((FormMain)this.Owner).m_mPlayHistoryTrackState == SHIP_PLAY_HISTORY_TRACK_STATE.HISTORY_TRACK_Ready)
+            {
+                this.button_play.Enabled = true;
+                this.button_stop.Enabled = false;
+            }
+
+            if (((FormMain)this.Owner).m_mPlayHistoryTrackState == SHIP_PLAY_HISTORY_TRACK_STATE.HISTORY_TRACK_Playing)
+            {
+                this.button_play.Enabled = false;
+                this.button_stop.Enabled = true;
+            }
+
+            if (((FormMain)this.Owner).m_mPlayHistoryTrackState == SHIP_PLAY_HISTORY_TRACK_STATE.HISTORY_TRACK_Stop)
+            {
+                this.button_play.Enabled = true;
+                this.button_stop.Enabled = false;
+            }
+
+            if (((FormMain)this.Owner).m_playHistoryShipMan.iCurPlayTime > ((FormMain)this.Owner).m_playHistoryShipMan.iStartPlayTime)
+            {
+                this.button_play.Enabled = true;
+                this.button_goback.Enabled = false;
+            }
+            else
+            {
+                this.button_goback.Enabled = true;
+            }
+
+            if (((FormMain)this.Owner).m_playHistoryShipMan.iCurPlayTime > ((FormMain)this.Owner).m_playHistoryShipMan.iEndPlayTime)
+            {
+                this.button_play.Enabled = true;
+                this.button_stop.Enabled = false;
+                this.button_goback.Enabled = true;
+                this.button_goAhead.Enabled = false;
+            }
+            else
+            {
+                this.button_goAhead.Enabled = true;
+            }
+            
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            RefeshTimeBarValue();
+        }
+
+        public void RefeshTimeBarValue()
+        {
+            if(this.m_bDragTimeBar)
+            {
+                return;
+            }
+
+            int iCurPlayTime = ((FormMain)this.Owner).m_playHistoryShipMan.iCurPlayTime;
+            int iStartPlayTime = ((FormMain)this.Owner).m_playHistoryShipMan.iStartPlayTime;
+            int iEndPlayTime = ((FormMain)this.Owner).m_playHistoryShipMan.iEndPlayTime;
+            int iTimeBarLen = this.trackBar_Time.Maximum;
+
+            int itrackBarValue = iTimeBarLen * (iCurPlayTime - iStartPlayTime) / (iEndPlayTime - iStartPlayTime);
+            if (itrackBarValue < 0)
+            {
+                itrackBarValue = 0;
+            }
+            else if (itrackBarValue > iTimeBarLen)
+            {
+                itrackBarValue = iTimeBarLen;
+            }
+
+            this.trackBar_Time.Value = itrackBarValue;
+
+            this.label_curPlayTime.Text = "当前时间:" + InteropEncDotNet.Int2DataTime(iCurPlayTime);
+            RefrshButtonState();
+        }
+
+
+        private void trackBar_Time_MouseDown(object sender, MouseEventArgs e)
+        {
+            this.m_bDragTimeBar = true;
+        }
+
+        private void trackBar_Time_MouseUp(object sender, MouseEventArgs e)
+        {
+            RefreshPlayTrackInfo();
+            this.m_bDragTimeBar = false;
+            RefrshButtonState();
+        }
+
+        private void RefreshPlayTrackInfo()
+        {
+            int iCurtrackBarValue = this.trackBar_Time.Value;
+            int iStartPlayTime = ((FormMain)this.Owner).m_playHistoryShipMan.iStartPlayTime;
+            int iEndPlayTime = ((FormMain)this.Owner).m_playHistoryShipMan.iEndPlayTime;
+            int iTimeBarLen = this.trackBar_Time.Maximum;
+
+            int iNextPlayTime = (int)(iStartPlayTime + ((double)iCurtrackBarValue / iTimeBarLen) * (iEndPlayTime - iStartPlayTime));
+
+            ((FormMain)this.Owner).SetShipHistoryPlayTrack_PlayTime(iNextPlayTime);
+            ((FormMain)this.Owner).RedrawMapScreen();
+
+            this.label_curPlayTime.Text = "当前时间:" + InteropEncDotNet.Int2DataTime(iNextPlayTime);
+        }
+
+        private void trackBar_Time_ValueChanged(object sender, EventArgs e)
+        {
+            if(this.m_bDragTimeBar)
+            {
+                RefreshPlayTrackInfo();
+            }
+        }
+
+        private void comboBox_palySpeed_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            RefreshPlaySpeed();
+        }
+
+        private void RefreshPlaySpeed()
+        {
+            string strSpeed =((String)this.comboBox_palySpeed.SelectedItem).Trim();
+            int iSpeedTime = 60;
+            if(strSpeed.Equals("1秒/秒"))
+            {
+                iSpeedTime = 1;
+            }
+            else if(strSpeed.Equals("1分钟/秒"))
+            {
+                iSpeedTime = 60;
+            }
+            else if(strSpeed.Equals("10分钟/秒"))
+            {
+                iSpeedTime = 60 * 10;
+            }
+            else if(strSpeed.Equals("30分钟/秒"))
+            {
+                iSpeedTime = 60 * 30;
+            }
+            else if(strSpeed.Equals("1小时/秒"))
+            {
+                iSpeedTime = 60 * 60;
+            }
+            else if(strSpeed.Equals("10小时/秒"))
+            {
+                iSpeedTime = 60 * 600;
+            }
+            else if(strSpeed.Equals("1天/秒"))
+            {
+                iSpeedTime = 60 * 60 * 24;
+            }
+
+            ((FormMain)this.Owner).m_playHistoryShipMan.iCurPlayStep = iSpeedTime;
+        }
+
+        private void Form_PlayShipHistoryTrackMan_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if(MessageBox.Show("您确定要退出轨迹回放吗？","提示",MessageBoxButtons.OKCancel) == DialogResult.Cancel)
+            {
+                e.Cancel = true;
+            }
+            else
+            {
+                ((FormMain)this.Owner).m_mPlayHistoryTrackState = SHIP_PLAY_HISTORY_TRACK_STATE.HISTORY_TRACK_None;
+
+
+                if (this.m_iAreaLayerPos != -1 && this.m_iAreaPos != -1)
+                {
+                    ((FormMain)this.Owner).ymEncCtrl.tmDeleteGeoObject(this.m_iAreaLayerPos, this.m_iAreaPos);
+                }
+
+                ((FormMain)this.Owner).m_playHistoryShipMan.Clear();//清除数据
+                ((FormMain)this.Owner).RedrawMapScreen();//刷新海图
+                e.Cancel = false;
+            }
+        }
+    }
+}
