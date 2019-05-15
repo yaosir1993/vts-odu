@@ -1,3 +1,10 @@
 *.exe
 *.pdb
 *.svn-base
+*.suo
+*.dll
+*.cache
+ODU.csproj
+storage.ide-shm
+*App.config
+packages.config
