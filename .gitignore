@@ -1,5 +1,4 @@
 *.exe
-*.dll
 *.pdb
 *.svn-base
 *.suo

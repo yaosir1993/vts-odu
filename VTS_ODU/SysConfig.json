@@ -1,7 +1,7 @@
 ﻿{
     "radarRecvPort": "9005",
     "aisRecvPort": "9006",
-	"localIp": "",
+	"localIp": "192.168.1.112",
     "coachStation": {
         "coachStationIp": "10.162.35.124",
         "coachStationPort": "9004"
